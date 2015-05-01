@@ -1,0 +1,459 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6A6570EE1AF3F71100A6CFE4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6570ED1AF3F71100A6CFE4 /* AppDelegate.swift */; };
+		6A6570F01AF3F71100A6CFE4 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6570EF1AF3F71100A6CFE4 /* MasterViewController.swift */; };
+		6A6570F51AF3F71100A6CFE4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A6570F31AF3F71100A6CFE4 /* Main.storyboard */; };
+		6A6570F71AF3F71100A6CFE4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6A6570F61AF3F71100A6CFE4 /* Images.xcassets */; };
+		6A6570FA1AF3F71100A6CFE4 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6A6570F81AF3F71100A6CFE4 /* LaunchScreen.xib */; };
+		6A6571061AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6571051AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.swift */; };
+		6A6571121AF3F8D900A6CFE4 /* HidingNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6571111AF3F8D900A6CFE4 /* HidingNavViewController.swift */; };
+		6A65711B1AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6571191AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift */; };
+		6A65711C1AF3FADC00A6CFE4 /* HidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65711A1AF3FADC00A6CFE4 /* HidingViewController.swift */; };
+		6A65711E1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65711D1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift */; };
+		6A6571211AF408C000A6CFE4 /* HidingNavToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A65711F1AF408C000A6CFE4 /* HidingNavToolbarViewController.swift */; };
+		6A6571241AF40E7000A6CFE4 /* HidingNavTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A6571231AF40E7000A6CFE4 /* HidingNavTabViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6A6571001AF3F71100A6CFE4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6A6570E01AF3F71100A6CFE4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6A6570E71AF3F71100A6CFE4;
+			remoteInfo = HidingNavigationBarSample;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6A6570E81AF3F71100A6CFE4 /* HidingNavigationBarSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HidingNavigationBarSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A6570EC1AF3F71100A6CFE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A6570ED1AF3F71100A6CFE4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		6A6570EF1AF3F71100A6CFE4 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		6A6570F41AF3F71100A6CFE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		6A6570F61AF3F71100A6CFE4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		6A6570F91AF3F71100A6CFE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		6A6570FF1AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HidingNavigationBarSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		6A6571041AF3F71100A6CFE4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A6571051AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HidingNavigationBarSampleTests.swift; sourceTree = "<group>"; };
+		6A6571111AF3F8D900A6CFE4 /* HidingNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavViewController.swift; sourceTree = "<group>"; };
+		6A6571191AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavigationBarManager.swift; sourceTree = "<group>"; };
+		6A65711A1AF3FADC00A6CFE4 /* HidingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingViewController.swift; sourceTree = "<group>"; };
+		6A65711D1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavExtensionViewController.swift; sourceTree = "<group>"; };
+		6A65711F1AF408C000A6CFE4 /* HidingNavToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavToolbarViewController.swift; sourceTree = "<group>"; };
+		6A6571231AF40E7000A6CFE4 /* HidingNavTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavTabViewController.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6A6570E51AF3F71100A6CFE4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A6570FC1AF3F71100A6CFE4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		6A6570DF1AF3F71100A6CFE4 = {
+			isa = PBXGroup;
+			children = (
+				6A6571181AF3FADC00A6CFE4 /* HidingNavigationBar */,
+				6A6570EA1AF3F71100A6CFE4 /* HidingNavigationBarSample */,
+				6A6571021AF3F71100A6CFE4 /* HidingNavigationBarSampleTests */,
+				6A6570E91AF3F71100A6CFE4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		6A6570E91AF3F71100A6CFE4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6A6570E81AF3F71100A6CFE4 /* HidingNavigationBarSample.app */,
+				6A6570FF1AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		6A6570EA1AF3F71100A6CFE4 /* HidingNavigationBarSample */ = {
+			isa = PBXGroup;
+			children = (
+				6A6570ED1AF3F71100A6CFE4 /* AppDelegate.swift */,
+				6A6570EF1AF3F71100A6CFE4 /* MasterViewController.swift */,
+				6A6571111AF3F8D900A6CFE4 /* HidingNavViewController.swift */,
+				6A65711D1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift */,
+				6A6571231AF40E7000A6CFE4 /* HidingNavTabViewController.swift */,
+				6A65711F1AF408C000A6CFE4 /* HidingNavToolbarViewController.swift */,
+				6A6570F31AF3F71100A6CFE4 /* Main.storyboard */,
+				6A6570F61AF3F71100A6CFE4 /* Images.xcassets */,
+				6A6570F81AF3F71100A6CFE4 /* LaunchScreen.xib */,
+				6A6570EB1AF3F71100A6CFE4 /* Supporting Files */,
+			);
+			path = HidingNavigationBarSample;
+			sourceTree = "<group>";
+		};
+		6A6570EB1AF3F71100A6CFE4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A6570EC1AF3F71100A6CFE4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A6571021AF3F71100A6CFE4 /* HidingNavigationBarSampleTests */ = {
+			isa = PBXGroup;
+			children = (
+				6A6571051AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.swift */,
+				6A6571031AF3F71100A6CFE4 /* Supporting Files */,
+			);
+			path = HidingNavigationBarSampleTests;
+			sourceTree = "<group>";
+		};
+		6A6571031AF3F71100A6CFE4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				6A6571041AF3F71100A6CFE4 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6A6571181AF3FADC00A6CFE4 /* HidingNavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				6A6571191AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift */,
+				6A65711A1AF3FADC00A6CFE4 /* HidingViewController.swift */,
+			);
+			name = HidingNavigationBar;
+			path = ../HidingNavigationBar;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		6A6570E71AF3F71100A6CFE4 /* HidingNavigationBarSample */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A6571091AF3F71100A6CFE4 /* Build configuration list for PBXNativeTarget "HidingNavigationBarSample" */;
+			buildPhases = (
+				6A6570E41AF3F71100A6CFE4 /* Sources */,
+				6A6570E51AF3F71100A6CFE4 /* Frameworks */,
+				6A6570E61AF3F71100A6CFE4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HidingNavigationBarSample;
+			productName = HidingNavigationBarSample;
+			productReference = 6A6570E81AF3F71100A6CFE4 /* HidingNavigationBarSample.app */;
+			productType = "com.apple.product-type.application";
+		};
+		6A6570FE1AF3F71100A6CFE4 /* HidingNavigationBarSampleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6A65710C1AF3F71100A6CFE4 /* Build configuration list for PBXNativeTarget "HidingNavigationBarSampleTests" */;
+			buildPhases = (
+				6A6570FB1AF3F71100A6CFE4 /* Sources */,
+				6A6570FC1AF3F71100A6CFE4 /* Frameworks */,
+				6A6570FD1AF3F71100A6CFE4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6A6571011AF3F71100A6CFE4 /* PBXTargetDependency */,
+			);
+			name = HidingNavigationBarSampleTests;
+			productName = HidingNavigationBarSampleTests;
+			productReference = 6A6570FF1AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		6A6570E01AF3F71100A6CFE4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0630;
+				ORGANIZATIONNAME = "Tristan Himmelman";
+				TargetAttributes = {
+					6A6570E71AF3F71100A6CFE4 = {
+						CreatedOnToolsVersion = 6.3.1;
+					};
+					6A6570FE1AF3F71100A6CFE4 = {
+						CreatedOnToolsVersion = 6.3.1;
+						TestTargetID = 6A6570E71AF3F71100A6CFE4;
+					};
+				};
+			};
+			buildConfigurationList = 6A6570E31AF3F71100A6CFE4 /* Build configuration list for PBXProject "HidingNavigationBarSample" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 6A6570DF1AF3F71100A6CFE4;
+			productRefGroup = 6A6570E91AF3F71100A6CFE4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				6A6570E71AF3F71100A6CFE4 /* HidingNavigationBarSample */,
+				6A6570FE1AF3F71100A6CFE4 /* HidingNavigationBarSampleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		6A6570E61AF3F71100A6CFE4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A6570F51AF3F71100A6CFE4 /* Main.storyboard in Resources */,
+				6A6570FA1AF3F71100A6CFE4 /* LaunchScreen.xib in Resources */,
+				6A6570F71AF3F71100A6CFE4 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A6570FD1AF3F71100A6CFE4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		6A6570E41AF3F71100A6CFE4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A6571211AF408C000A6CFE4 /* HidingNavToolbarViewController.swift in Sources */,
+				6A65711B1AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift in Sources */,
+				6A6571241AF40E7000A6CFE4 /* HidingNavTabViewController.swift in Sources */,
+				6A6570F01AF3F71100A6CFE4 /* MasterViewController.swift in Sources */,
+				6A6570EE1AF3F71100A6CFE4 /* AppDelegate.swift in Sources */,
+				6A6571121AF3F8D900A6CFE4 /* HidingNavViewController.swift in Sources */,
+				6A65711C1AF3FADC00A6CFE4 /* HidingViewController.swift in Sources */,
+				6A65711E1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6A6570FB1AF3F71100A6CFE4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6A6571061AF3F71100A6CFE4 /* HidingNavigationBarSampleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		6A6571011AF3F71100A6CFE4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 6A6570E71AF3F71100A6CFE4 /* HidingNavigationBarSample */;
+			targetProxy = 6A6571001AF3F71100A6CFE4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		6A6570F31AF3F71100A6CFE4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A6570F41AF3F71100A6CFE4 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		6A6570F81AF3F71100A6CFE4 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				6A6570F91AF3F71100A6CFE4 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		6A6571071AF3F71100A6CFE4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		6A6571081AF3F71100A6CFE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		6A65710A1AF3F71100A6CFE4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HidingNavigationBarSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		6A65710B1AF3F71100A6CFE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = HidingNavigationBarSample/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		6A65710D1AF3F71100A6CFE4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HidingNavigationBarSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HidingNavigationBarSample.app/HidingNavigationBarSample";
+			};
+			name = Debug;
+		};
+		6A65710E1AF3F71100A6CFE4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = HidingNavigationBarSampleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HidingNavigationBarSample.app/HidingNavigationBarSample";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		6A6570E31AF3F71100A6CFE4 /* Build configuration list for PBXProject "HidingNavigationBarSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A6571071AF3F71100A6CFE4 /* Debug */,
+				6A6571081AF3F71100A6CFE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A6571091AF3F71100A6CFE4 /* Build configuration list for PBXNativeTarget "HidingNavigationBarSample" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A65710A1AF3F71100A6CFE4 /* Debug */,
+				6A65710B1AF3F71100A6CFE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		6A65710C1AF3F71100A6CFE4 /* Build configuration list for PBXNativeTarget "HidingNavigationBarSampleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6A65710D1AF3F71100A6CFE4 /* Debug */,
+				6A65710E1AF3F71100A6CFE4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 6A6570E01AF3F71100A6CFE4 /* Project object */;
+}
