@@ -18,9 +18,9 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 
 #Usage
 
-`HidingNavigationBarManager` is the class with which you need to interface with to make the magic happen. 
+`HidingNavigationBarManager` is the class that you need to interface with to make the magic happen. 
 
-The first step is to add a `HidingNavigationBarManager` member variable of to your view controller. Initialize the variable in `viewDidLoad`, passing in the view controller instance and the UIScrollView instance that will control the hiding/showing of the navigation bar.
+The first step is to add a `HidingNavigationBarManager` member variable to your view controller. Initialize the variable in `viewDidLoad` function, passing in the view controller instance and the UIScrollView instance that will control the hiding/showing of the navigation bar.
 
 Then you need to relay the following UIViewController lifecycle functions to the `HidingNavigationBarManager` instance:
 
@@ -79,15 +79,15 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 
 Note: HidingNavigationBar only works with UINavigationBars that have translucent set to true.
 
-#Installation
+<!--#Installation-->
 
-ZoomTransition can be easily added to your project using [Cocoapods](https://cocoapods.org/) by adding the following to your Podfile:
+<!--ZoomTransition can be easily added to your project using [Cocoapods](https://cocoapods.org/) by adding the following to your Podfile:-->
 
-`pod 'HidingNavigationBar', '~> 0.1'`
+<!--`pod 'HidingNavigationBar', '~> 0.1'`-->
 
-Otherwise you can include the following files directly to your project:
-- HidingNavigationBarManager.swift
-- HidingViewController.swift
+<!--Otherwise you can include the following files directly to your project:-->
+<!--- HidingNavigationBarManager.swift-->
+<!--- HidingViewController.swift-->
 
 
 <!-- 
