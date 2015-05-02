@@ -85,11 +85,11 @@ Note: HidingNavigationBar only works with UINavigationBars that have translucent
 
 #Installation
 
-<!--ZoomTransition can be easily added to your project using [Cocoapods](https://cocoapods.org/) by adding the following to your Podfile:-->
+If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
 
-<!--`pod 'HidingNavigationBar', '~> 0.1'`-->
+`pod 'HidingNavigationBar', '~> 0.1'`
 
-Include the following files directly to your project:
+Otherwise, include the following files directly to your project:
 - HidingNavigationBarManager.swift
 - HidingViewController.swift
 
