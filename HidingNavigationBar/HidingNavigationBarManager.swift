@@ -8,19 +8,19 @@
 
 import UIKit
 
-protocol HidingNavigationBarManagerDelegate {
+public protocol HidingNavigationBarManagerDelegate {
 	func hidingnavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager)
 	func hidingnavigationBarManagerDidChangeState(manager: HidingNavigationBarManager, toState state: HidingNavigationBarState)
 }
 
-enum HidingNavigationBarState: String {
+public enum HidingNavigationBarState: String {
 	case Closed			= "Closed"
 	case Contracting	= "Contracting"
 	case Expanding		= "Expanding"
 	case Open			= "Open"
 }
 
-class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
+public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 	// The view controller that is part of the navigation stack
 	var viewController: UIViewController
 	
@@ -52,7 +52,7 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 	private var currentState = HidingNavigationBarState.Open
 	private var previousState = HidingNavigationBarState.Open
 	
-	init(viewController: UIViewController, scrollView: UIScrollView){
+	public init(viewController: UIViewController, scrollView: UIScrollView){
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
 			fatalError("ViewController must be within a UINavigationController")
 		}
@@ -99,7 +99,7 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 	
 	//MARK: Public methods
 
-	func manageBottomBar(view: UIView){
+	public func manageBottomBar(view: UIView){
 		tabBarController = HidingViewController(view: view)
 		tabBarController?.contractsUpwards = false
 		tabBarController?.expandedCenter = {(view: UIView) -> CGPoint in
@@ -110,7 +110,7 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 		}
 	}
 	
-	func addExtensionView(view: UIView) {
+	public func addExtensionView(view: UIView) {
 		extensionView?.removeFromSuperview()
 		extensionView = view
 		
@@ -126,19 +126,19 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 		updateContentInsets()
 	}
 	
-	func viewWillAppear(animated: Bool) {
+	public func viewWillAppear(animated: Bool) {
 		expand()
 	}
 	
-	func viewDidLayoutSubviews() {
+	public func viewDidLayoutSubviews() {
 		updateContentInsets()
 	}
 	
-	func viewWillDisappear(animated: Bool) {
+	public func viewWillDisappear(animated: Bool) {
 		expand()
 	}
 	
-	func updateValues()	{
+	public func updateValues()	{
 		isUpdatingValues = true
 		
 		var scrolledToTop = false
@@ -165,7 +165,7 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 		isUpdatingValues = false
 	}
 	
-	func shouldScrollToTop(){
+	public func shouldScrollToTop(){
 		// update content Inset
 		let top = statusBarHeight() + navBarController.totalHeight()
 		updateScrollContentInsetTop(top)
@@ -174,14 +174,14 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 		tabBarController?.snap(false, completion: nil)
 	}
 	
-	func contract(){
+	public func contract(){
 		navBarController.contract()
 		tabBarController?.contract()
 		
 		previousYOffset = CGFloat.NaN
 	}
 	
-	func expand() {
+	public func expand() {
 		navBarController.expand()
 		tabBarController?.expand()
 		
@@ -371,7 +371,7 @@ class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecog
 	
 	//MARK: UIGestureRecognizerDelegate
 	
-	func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
 
