@@ -2,14 +2,17 @@ HidingNavigationBar
 ==============
 
 An easy to use library (written in Swift) that manages hiding and showing a navigation bar as a user scrolls.
+- [Features](#features)
+- [Usage](#usage)
+- [Installation](#installation)
 
 #Features 
 
 HidingNavigationBar supports hiding/showing of the following view elements:
 - UINavigationBar
-- An extension view placed below the navigation bar
-- UIToolbar
-- UITabBar 
+- UINavigationBar and an extension UIView 
+- UINavigationBar and a UIToolbar
+- UINavigationBar and a UITabBar 
 
 ###UINavigationBar
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNav.gif)
@@ -22,25 +25,22 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 
 #Usage
 
-`HidingNavigationBarManager` is the class that you need to interface with to make the magic happen. 
-
-The first step is to add a `HidingNavigationBarManager` member variable to your view controller. Initialize the variable in `viewDidLoad` function, passing in the view controller instance and the UIScrollView instance that will control the hiding/showing of the navigation bar.
-
-Then you need to relay the following UIViewController lifecycle functions to the `HidingNavigationBarManager` instance:
-
+1. Include a member variable of type `HidingNavigationBarManager` in your `UIViewController` subclass.
+2. Initialize the variable in `viewDidLoad` function, passing in the `UIViewController` instance and the `UIScrollView` instance that will control the hiding/showing of the navigation bar.
+3. Relay the following `UIViewController` lifecycle functions to the `HidingNavigationBarManager` variable:
 ```swift
 override func viewWillAppear(animated: Bool)
-```
-```swift
-override func viewDidLayoutSubviews()
-```
-```swift
 override func viewWillDisappear(animated: Bool)
+override func viewDidLayoutSubviews() //Only necessary when adding the extension view
+```
+And finally relay the following `UIScrollViewDelegate` function:
+```swift
+func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool
 ```
 
-Below is a sample of everything put together:
+Below is an example of how your UIViewController subclass should look:
 ```swift 
-class HidingNavViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	var hidingNavBarManager: HidingNavigationBarManager?
 	@IBOutlet weak var tableView: UITableView!
@@ -83,15 +83,15 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 
 Note: HidingNavigationBar only works with UINavigationBars that have translucent set to true.
 
-<!--#Installation-->
+#Installation
 
 <!--ZoomTransition can be easily added to your project using [Cocoapods](https://cocoapods.org/) by adding the following to your Podfile:-->
 
 <!--`pod 'HidingNavigationBar', '~> 0.1'`-->
 
-<!--Otherwise you can include the following files directly to your project:-->
-<!--- HidingNavigationBarManager.swift-->
-<!--- HidingViewController.swift-->
+Include the following files directly to your project:
+- HidingNavigationBarManager.swift
+- HidingViewController.swift
 
 
 <!-- 
