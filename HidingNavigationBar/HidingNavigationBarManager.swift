@@ -31,12 +31,12 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	var extensionView: UIView?
 	
 	// Control the resistance when scrolling up/down before the navbar expands/contracts again.
-	var expansionResistance: CGFloat = 0
+	public var expansionResistance: CGFloat = 0
 	private var contractionResistance: CGFloat = 0
 	
-	var delegate: HidingNavigationBarManagerDelegate?
+	public var delegate: HidingNavigationBarManagerDelegate?
 	
-	var refreshControl: UIRefreshControl?
+	public var refreshControl: UIRefreshControl?
 	
 	private var navBarController: HidingViewController
 	private var extensionController: HidingViewController
