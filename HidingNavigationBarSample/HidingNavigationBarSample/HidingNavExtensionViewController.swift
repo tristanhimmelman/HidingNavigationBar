@@ -24,7 +24,13 @@ class HidingNavExtensionViewController: UIViewController, UITableViewDataSource,
 		view.addSubview(tableView)
 
 		let extensionView = UIView(frame: CGRectMake(0, 0, view.frame.size.width, 40))
-		extensionView.backgroundColor = UIColor(red: 35/255, green: 255/255, blue: 127/255, alpha: 1)
+		extensionView.layer.borderColor = UIColor.lightGrayColor().CGColor
+		extensionView.layer.borderWidth = 1
+		extensionView.backgroundColor = UIColor(white: 230/255, alpha: 1)
+		let label = UILabel(frame: extensionView.frame)
+		label.text = "Extension View"
+		label.textAlignment = NSTextAlignment.Center
+		extensionView.addSubview(label)
 		
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
 		hidingNavBarManager?.addExtensionView(extensionView)

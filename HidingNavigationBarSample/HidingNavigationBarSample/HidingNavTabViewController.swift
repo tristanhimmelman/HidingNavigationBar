@@ -30,6 +30,7 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
 		if let tabBar = navigationController?.tabBarController?.tabBar {
 			hidingNavBarManager?.manageBottomBar(tabBar)
+			tabBar.barTintColor = UIColor(white: 230/255, alpha: 1)
 		}
     }
 	

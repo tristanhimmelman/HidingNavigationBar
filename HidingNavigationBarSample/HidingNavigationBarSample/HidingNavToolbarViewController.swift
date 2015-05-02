@@ -25,7 +25,7 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 		view.addSubview(tableView)
 		
 		toolbar = UIToolbar(frame: CGRectMake(0, view.bounds.size.height - 44, view.bounds.width, 44))
-		toolbar.barTintColor = UIColor(red: 35/255, green: 255/255, blue: 127/255, alpha: 1)
+		toolbar.barTintColor = UIColor(white: 230/255, alpha: 1)
 		view.addSubview(toolbar)
 		
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
