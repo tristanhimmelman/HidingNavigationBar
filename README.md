@@ -11,9 +11,13 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 - UIToolbar
 - UITabBar 
 
+###UINavigationBar
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNav.gif)
+###UINavigationBar and an extension UIView
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNavExtension.gif)
+###UINavigationBar and a UIToolbar
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNavToolbar.gif)
+###A UINavigationBar and a UITabBar
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNavTabBar.gif)
 
 #Usage
