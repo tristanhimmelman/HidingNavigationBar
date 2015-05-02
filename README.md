@@ -4,6 +4,7 @@ HidingNavigationBar
 An easy to use library (written in Swift) that manages hiding and showing a navigation bar as a user scrolls.
 - [Features](#features)
 - [Usage](#usage)
+- [Customization](#customization)
 - [Installation](#installation)
 
 #Features 
@@ -83,6 +84,26 @@ class MyViewController: UIViewController, UITableViewDataSource, UITableViewDele
 
 Note: HidingNavigationBar only works with UINavigationBars that have translucent set to true.
 
+#Customization
+
+###Add an extension view to the UINavigationBar
+```swift
+let extensionView = // load your a UIView to use as an extension
+hidingNavBarManager?.addExtensionView(extensionView)
+```
+###Hide and show a UITabBar or UIToolbar
+```swift
+if let tabBar = navigationController?.tabBarController?.tabBar {
+	hidingNavBarManager?.manageBottomBar(tabBar)
+}
+```
+
+###Expansion Resistance 
+When the navigation bar is hidden, you can some 'resitance' which adds a delay before the navigation bar starts to expand when scrolling. The resistance value is the distance that the user needs to scroll before the navigation bar starts to expand.
+```swift
+hidingNavBarManager?.expansionResistance = 150
+```
+
 #Installation
 
 If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
@@ -92,13 +113,3 @@ If you are using [Cocoapods](https://cocoapods.org/), add the following line to 
 Otherwise, include the following files directly to your project:
 - HidingNavigationBarManager.swift
 - HidingViewController.swift
-
-
-<!-- 
-#Implementation Notes
-
-- method swizzling
-- tab bar support -->
-
-
-
