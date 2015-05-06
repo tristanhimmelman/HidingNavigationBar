@@ -104,6 +104,13 @@ When the navigation bar is hidden, you can some 'resitance' which adds a delay b
 hidingNavBarManager?.expansionResistance = 150
 ```
 
+###UIRefreshControl
+
+If you are using a UIRefreshControl with your scroll view, it is important to let the `HidingNavigationBarManager` know about it:
+```swift
+hidingNavBarManager?.refreshControl = refreshControl
+```
+
 #Installation
 
 If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
