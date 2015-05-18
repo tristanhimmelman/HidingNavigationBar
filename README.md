@@ -1,5 +1,6 @@
 HidingNavigationBar
 ==============
+[![CocoaPods](https://img.shields.io/cocoapods/v/HidingNavigationBar.svg)](https://github.com/tristanhimmelman/HidingNavigationBar)
 
 An easy to use library (written in Swift) that manages hiding and showing a navigation bar as a user scrolls.
 - [Features](#features)
