@@ -1,5 +1,6 @@
 HidingNavigationBar
 ==============
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![CocoaPods](https://img.shields.io/cocoapods/v/HidingNavigationBar.svg)](https://github.com/tristanhimmelman/HidingNavigationBar)
 
 An easy to use library (written in Swift) that manages hiding and showing a navigation bar as a user scrolls.
@@ -113,6 +114,11 @@ hidingNavBarManager?.refreshControl = refreshControl
 ```
 
 #Installation
+
+If your using [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
+```
+github "tristanhimmelman/HidingNavigationBar" ~> 0.2
+```
 
 If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
 
