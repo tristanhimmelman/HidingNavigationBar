@@ -116,7 +116,7 @@ hidingNavBarManager?.refreshControl = refreshControl
 
 If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
 
-`pod 'HidingNavigationBar', '~> 0.1'`
+`pod 'HidingNavigationBar', '~> 0.2'`
 
 Otherwise, include the following files directly to your project:
 - HidingNavigationBarManager.swift
