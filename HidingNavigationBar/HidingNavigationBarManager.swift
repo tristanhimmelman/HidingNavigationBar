@@ -344,7 +344,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			var newContentOffset = scrollView.contentOffset
 			newContentOffset.y -= deltaY
 			
-			var contentInset = scrollView.contentInset
+			let contentInset = scrollView.contentInset
 			let top = contentInset.top + deltaY
 			
 			UIView.animateWithDuration(0.2){

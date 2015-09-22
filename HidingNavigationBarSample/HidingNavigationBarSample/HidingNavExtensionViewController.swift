@@ -74,7 +74,7 @@ class HidingNavExtensionViewController: UIViewController, UITableViewDataSource,
     }
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) 
 
         // Configure the cell...
 		cell.textLabel?.text = "row \(indexPath.row)"

@@ -45,7 +45,7 @@ class MasterViewController: UITableViewController {
 	}
 
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
 		
 		cell.textLabel?.font = UIFont.systemFontOfSize(16)
 		cell.textLabel?.text = rows[indexPath.row]

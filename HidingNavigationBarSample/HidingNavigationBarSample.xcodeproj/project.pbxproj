@@ -183,6 +183,8 @@
 		6A6570E01AF3F71100A6CFE4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = "Tristan Himmelman";
 				TargetAttributes = {

@@ -26,7 +26,7 @@ class HidingViewController {
 	init() {
 		view = UIView(frame: CGRectMake(0, 0, 0, 0))
 		view.backgroundColor = UIColor.clearColor()
-		view.autoresizingMask = .FlexibleWidth | .FlexibleBottomMargin
+		view.autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
 	}
 	
 	func expandedCenterValue() -> CGPoint {
@@ -108,7 +108,7 @@ class HidingViewController {
 	func snap(contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
 		var deltaY: CGFloat = 0
 		
-		UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions.allZeros, animations: {
+		UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
 			if let child = self.child {
 				if contract && child.isContracted() {
 					deltaY = self.contract()
@@ -154,7 +154,7 @@ class HidingViewController {
 			updateSubviewsToAlpha(0)
 		}
 		
-		var amountToMove = contractedCenterValue().y - view.center.y
+		let amountToMove = contractedCenterValue().y - view.center.y
 		
 		view.center = contractedCenterValue()
 		
@@ -168,7 +168,7 @@ class HidingViewController {
 			navSubviews = []
 			
 			// loops through and subview and save the visible ones in navSubviews array
-			for subView in view.subviews as! [UIView] {
+			for subView in view.subviews {
 				let isBackgroundView = subView === view.subviews[0]
 				let isViewHidden = subView.hidden || Float(subView.alpha) < FLT_EPSILON
 				
