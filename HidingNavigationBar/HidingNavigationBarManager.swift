@@ -313,14 +313,15 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	}
 	
 	private func updateScrollContentInsetTop(top: CGFloat){
-		var contentInset = scrollView.contentInset
-		var scrollInsets = scrollView.scrollIndicatorInsets
-		contentInset.top = top
-		scrollInsets.top = top
-		scrollView.contentInset = contentInset
-		scrollView.scrollIndicatorInsets = scrollInsets
-		
-		delegate?.hidingnavigationBarManagerDidUpdateScrollViewInsets(self)
+        if viewController.automaticallyAdjustsScrollViewInsets {
+            var contentInset = scrollView.contentInset
+            contentInset.top = top
+            scrollView.contentInset = contentInset
+        }
+        var scrollInsets = scrollView.scrollIndicatorInsets
+        scrollInsets.top = top
+        scrollView.scrollIndicatorInsets = scrollInsets
+        delegate?.hidingnavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
 	
 	private func handleScrollingEnded(velocity: CGFloat) {
