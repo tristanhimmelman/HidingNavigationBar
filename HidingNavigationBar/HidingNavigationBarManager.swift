@@ -179,6 +179,8 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		tabBarController?.contract()
 		
 		previousYOffset = CGFloat.NaN
+		
+		handleScrolling()
 	}
 	
 	public func expand() {
@@ -186,6 +188,8 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		tabBarController?.expand()
 		
 		previousYOffset = CGFloat.NaN
+		
+		handleScrolling()
 	}
 	
 	//MARK: NSNotification
