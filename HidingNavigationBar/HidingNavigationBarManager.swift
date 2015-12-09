@@ -22,7 +22,7 @@ public enum HidingNavigationBarState: String {
 
 public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 	// The view controller that is part of the navigation stack
-	var viewController: UIViewController
+	unowned var viewController: UIViewController
 	
 	// The scrollView that will drive the contraction/expansion
 	var scrollView: UIScrollView
@@ -77,12 +77,12 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		panGesture.delegate = self
 		scrollView.addGestureRecognizer(panGesture)
 		
-		navBarController.expandedCenter = {(view: UIView) -> CGPoint in
-			return CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds) + self.statusBarHeight())
+		navBarController.expandedCenter = {[weak self] (view: UIView) -> CGPoint in
+			return CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds) + (self?.statusBarHeight() ?? 0))
 		}
 		
-		extensionController.expandedCenter = {(view: UIView) -> CGPoint in
-			let topOffset = self.navBarController.contractionAmountValue() + self.statusBarHeight()
+		extensionController.expandedCenter = {[weak self] (view: UIView) -> CGPoint in
+			let topOffset = (self?.navBarController.contractionAmountValue() ?? 0) + (self?.statusBarHeight() ?? 0)
 			let point = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds) + topOffset)
 			
 			return point
@@ -102,8 +102,8 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	public func manageBottomBar(view: UIView){
 		tabBarController = HidingViewController(view: view)
 		tabBarController?.contractsUpwards = false
-		tabBarController?.expandedCenter = {(view: UIView) -> CGPoint in
-			let height = self.viewController.view.frame.size.height
+		tabBarController?.expandedCenter = {[weak self] (view: UIView) -> CGPoint in
+			let height = self?.viewController.view.frame.size.height ?? 0
 			let point = CGPointMake(CGRectGetMidX(view.bounds), height - CGRectGetMidY(view.bounds))
 			
 			return point
