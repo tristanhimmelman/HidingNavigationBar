@@ -385,11 +385,11 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 
 //MARK: Extensions
 
-private struct AssociatedKeys {
-    static var hidingNavigationBarManager = "hidingNavigationBarManager"
-}
-
 extension UIViewController {
+    private struct AssociatedKeys {
+        static var hidingNavigationBarManager = "hidingNavigationBarManager"
+    }
+    
     public var hidingNavigationBarManager: HidingNavigationBarManager? {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.hidingNavigationBarManager) as? HidingNavigationBarManager
@@ -402,11 +402,6 @@ extension UIViewController {
     public override class func initialize() {
         struct Static {
             static var token: dispatch_once_t = 0
-        }
-        
-        // make sure this isn't a subclass
-        if self !== UIViewController.self {
-            return
         }
         
         dispatch_once(&Static.token) {
