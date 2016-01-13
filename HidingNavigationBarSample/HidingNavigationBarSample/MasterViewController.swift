@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 	
-	let rows = ["Hiding Nav Bar", "Hiding Nav Bar + Extension View", "Hiding Nav Bar + Toolbar", "Hiding Nav Bar + TabBar"]
+	let rows = ["Hiding Nav Bar", "Hiding Nav Bar (Internal)", "Hiding Nav Bar + Extension View", "Hiding Nav Bar + Toolbar", "Hiding Nav Bar + TabBar"]
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -59,10 +59,13 @@ class MasterViewController: UITableViewController {
 		if indexPath.row == 0 {
 			let controller = HidingNavViewController()
 			navigationController?.pushViewController(controller, animated: true)
-		} else if indexPath.row == 1 {
+        } else if indexPath.row == 1 {
+            let controller = HidingNavInternalViewController()
+            navigationController?.pushViewController(controller, animated: true)
+		} else if indexPath.row == 2 {
 			let controller = HidingNavExtensionViewController()
 			navigationController?.pushViewController(controller, animated: true)
-		} else if indexPath.row == 2 {
+		} else if indexPath.row == 3 {
 			let controller = HidingNavToolbarViewController()
 			navigationController?.pushViewController(controller, animated: true)
 		} else {

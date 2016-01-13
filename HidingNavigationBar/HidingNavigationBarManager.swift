@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ObjectiveC
 
 public protocol HidingNavigationBarManagerDelegate {
 	func hidingnavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager)
@@ -379,5 +380,76 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	public func gestureRecognizer(gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWithGestureRecognizer otherGestureRecognizer: UIGestureRecognizer) -> Bool {
 		return true
 	}
+
+}
+
+//MARK: Extensions
+
+private struct AssociatedKeys {
+    static var hidingNavigationBarManager = "hidingNavigationBarManager"
+}
+
+extension UIViewController {
+    public var hidingNavigationBarManager: HidingNavigationBarManager? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.hidingNavigationBarManager) as? HidingNavigationBarManager
+        }
+        set(newValue) {
+            objc_setAssociatedObject(self, &AssociatedKeys.hidingNavigationBarManager, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+    
+    public override class func initialize() {
+        struct Static {
+            static var token: dispatch_once_t = 0
+        }
+        
+        // make sure this isn't a subclass
+        if self !== UIViewController.self {
+            return
+        }
+        
+        dispatch_once(&Static.token) {
+            
+            let methodsToSwizzle : [(original: String, swizzled: String)] = [
+                (original: "viewWillAppear:", swizzled: "hnb_viewWillAppear:"),
+                (original: "viewDidLayoutSubviews", swizzled: "hnb_viewDidLayoutSubviews"),
+                (original: "viewWillDisappear:", swizzled: "hnb_viewWillDisappear:"),
+            ]
+            
+            for (original, swizzled) in methodsToSwizzle {
+                let originalSelector = Selector(original)
+                let swizzledSelector = Selector(swizzled)
+                
+                let originalMethod = class_getInstanceMethod(self, originalSelector)
+                let swizzledMethod = class_getInstanceMethod(self, swizzledSelector)
+                
+                let didAddMethod = class_addMethod(self, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod))
+                
+                if didAddMethod {
+                    class_replaceMethod(self, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod))
+                } else {
+                    method_exchangeImplementations(originalMethod, swizzledMethod)
+                }
+            }
+        }
+    }
+    
+    //MARK: Swizzled methods
+    
+    func hnb_viewWillAppear(animated: Bool) {
+        self.hidingNavigationBarManager?.viewWillAppear(animated)
+        self.hnb_viewWillAppear(animated)
+    }
+    
+    func hnb_viewDidLayoutSubviews() {
+        self.hidingNavigationBarManager?.viewDidLayoutSubviews()
+        self.hnb_viewDidLayoutSubviews()
+    }
+    
+    func hnb_viewWillDisappear(animated: Bool) {
+        self.hidingNavigationBarManager?.viewWillDisappear(animated)
+        self.hnb_viewWillDisappear(animated)
+    }
 
 }
