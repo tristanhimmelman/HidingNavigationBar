@@ -8,16 +8,16 @@
 
 import UIKit
 
-public protocol HidingNavigationBarManagerDelegate {
-	func hidingnavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager)
-	func hidingnavigationBarManagerDidChangeState(manager: HidingNavigationBarManager, toState state: HidingNavigationBarState)
+@objc public protocol HidingNavigationBarManagerDelegate {
+	optional func hidingnavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager)
+	optional func hidingnavigationBarManagerDidChangeState(manager: HidingNavigationBarManager, toState state: HidingNavigationBarState)
 }
 
-public enum HidingNavigationBarState: String {
-	case Closed			= "Closed"
-	case Contracting	= "Contracting"
-	case Expanding		= "Expanding"
-	case Open			= "Open"
+@objc public enum HidingNavigationBarState: Int {
+	case Closed
+	case Contracting
+	case Expanding
+	case Open
 }
 
 public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
@@ -56,6 +56,9 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
 			fatalError("ViewController must be within a UINavigationController")
 		}
+        
+        viewController.extendedLayoutIncludesOpaqueBars = true
+        
 		self.viewController = viewController
 		self.scrollView = scrollView
 		
@@ -301,7 +304,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		}
 		
 		if state != currentState {
-			delegate?.hidingnavigationBarManagerDidChangeState(self, toState: currentState)
+			delegate?.hidingnavigationBarManagerDidChangeState?(self, toState: currentState)
 		}
 	}
 	
@@ -325,7 +328,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
         var scrollInsets = scrollView.scrollIndicatorInsets
         scrollInsets.top = top
         scrollView.scrollIndicatorInsets = scrollInsets
-        delegate?.hidingnavigationBarManagerDidUpdateScrollViewInsets(self)
+        delegate?.hidingnavigationBarManagerDidUpdateScrollViewInsets?(self)
 	}
 	
 	private func handleScrollingEnded(velocity: CGFloat) {
