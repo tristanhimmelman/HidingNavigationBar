@@ -57,8 +57,6 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			fatalError("ViewController must be within a UINavigationController")
 		}
         
-        viewController.extendedLayoutIncludesOpaqueBars = true
-        
 		self.viewController = viewController
 		self.scrollView = scrollView
 		
