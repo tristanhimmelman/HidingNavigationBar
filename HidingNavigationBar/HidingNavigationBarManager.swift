@@ -266,7 +266,6 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			if currentState != previousState {
 				previousState = currentState
 				resistanceConsumed = 0
-				//println("new state \(currentState.rawValue)")
 			}
 			
 			// 5 - Apply resistance
@@ -356,6 +355,8 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 				self.updateScrollContentInsetTop(top)
 				self.scrollView.contentOffset = newContentOffset
 			}
+            
+            previousYOffset = CGFloat.NaN
 		}
 	}
 	
