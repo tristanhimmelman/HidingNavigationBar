@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HidingNavViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HidingNavViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HidingNavigationBarManagerDelegate {
 
 	let identifier = "cell"
 	var hidingNavBarManager: HidingNavigationBarManager?
@@ -72,5 +72,15 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 		cell.selectionStyle = UITableViewCellSelectionStyle.None
 
         return cell
+    }
+    
+    // MARK: - HidingNavigationBarManagerDelegate
+    
+    func hidingNavigationBarManagerDidChangeState(manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
+        
+    }
+    
+    func hidingNavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager) {
+        
     }
 }
