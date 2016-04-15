@@ -20,6 +20,12 @@ public enum HidingNavigationBarState: String {
 	case Open			= "Open"
 }
 
+public enum HidingNavigationForegroundAction {
+	case Default
+	case Show
+	case Hide
+}
+
 public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 	// The view controller that is part of the navigation stack
 	unowned var viewController: UIViewController
@@ -51,6 +57,9 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	// Hiding navigation bar state
 	private var currentState = HidingNavigationBarState.Open
 	private var previousState = HidingNavigationBarState.Open
+
+	//Options
+	public var onForegroundAction = HidingNavigationForegroundAction.Default
 	
 	public init(viewController: UIViewController, scrollView: UIScrollView){
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
@@ -93,7 +102,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		
 		updateContentInsets()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationDidBecomeActive"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillEnterForeground"), name: UIApplicationDidBecomeActiveNotification, object: nil)
 	}
 	
 	deinit {
@@ -197,9 +206,17 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	
 	//MARK: NSNotification
 	
-	func applicationDidBecomeActive() {
-		navBarController.expand()
-		tabBarController?.expand()
+	func applicationWillEnterForeground() {
+		switch onForegroundAction {
+		case .Show:
+			navBarController.expand()
+			tabBarController?.expand()
+		case .Hide:
+			navBarController.contract()
+			tabBarController?.contract()
+		default:
+			break;
+		}
 	}
 	
 	//MARK: Private methods

@@ -100,6 +100,13 @@ if let tabBar = navigationController?.tabBarController?.tabBar {
 }
 ```
 
+###Hide/Show/Do Nothing when App is Foregrounded
+```swift
+	hidingNavBarManager?.onForegroundAction = .Default	//Do nothing, state of bars will remain the same as when backgrounded
+	hidingNavBarManager?.onForegroundAction = .Hide		//Always hide on foreground
+	hidingNavBarManager?.onForegroundAction = .Show 	//Always show on foreground
+```
+
 ###Expansion Resistance 
 When the navigation bar is hidden, you can some 'resitance' which adds a delay before the navigation bar starts to expand when scrolling. The resistance value is the distance that the user needs to scroll before the navigation bar starts to expand.
 ```swift
