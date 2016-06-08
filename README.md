@@ -28,9 +28,10 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 
 #Usage
 
-1. Include a member variable of type `HidingNavigationBarManager` in your `UIViewController` subclass.
-2. Initialize the variable in `viewDidLoad` function, passing in the `UIViewController` instance and the `UIScrollView` instance that will control the hiding/showing of the navigation bar.
-3. Relay the following `UIViewController` lifecycle functions to the `HidingNavigationBarManager` variable:
+1. Import HidingNavigationBar
+2. Include a member variable of type `HidingNavigationBarManager` in your `UIViewController` subclass.
+3. Initialize the variable in `viewDidLoad` function, passing in the `UIViewController` instance and the `UIScrollView` instance that will control the hiding/showing of the navigation bar.
+4. Relay the following `UIViewController` lifecycle functions to the `HidingNavigationBarManager` variable:
 ```swift
 override func viewWillAppear(animated: Bool)
 override func viewWillDisappear(animated: Bool)
@@ -43,6 +44,8 @@ func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool
 
 Below is an example of how your UIViewController subclass should look:
 ```swift 
+import HidingNavigationBar
+
 class MyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	var hidingNavBarManager: HidingNavigationBarManager?
