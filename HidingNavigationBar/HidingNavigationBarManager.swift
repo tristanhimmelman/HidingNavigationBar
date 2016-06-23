@@ -85,7 +85,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		super.init()
 		
 		// track panning on scroll view
-		let panGesture = UIPanGestureRecognizer(target: self, action: Selector("handlePanGesture:"))
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(HidingNavigationBarManager.handlePanGesture(_:)))
 		panGesture.delegate = self
 		scrollView.addGestureRecognizer(panGesture)
 		
@@ -102,7 +102,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		
 		updateContentInsets()
 		
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("applicationWillEnterForeground"), name: UIApplicationDidBecomeActiveNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(HidingNavigationBarManager.applicationWillEnterForeground), name: UIApplicationDidBecomeActiveNotification, object: nil)
 	}
 	
 	deinit {
