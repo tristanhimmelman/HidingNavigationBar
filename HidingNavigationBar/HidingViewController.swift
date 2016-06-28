@@ -52,11 +52,9 @@ class HidingViewController {
 	}
 	
 	func contractedCenterValue() -> CGPoint {
-		if contractsUpwards {
-			return CGPointMake(expandedCenterValue().x, expandedCenterValue().y - contractionAmountValue())
-		} else {
-			return CGPointMake(expandedCenterValue().x, expandedCenterValue().y + contractionAmountValue())
-		}
+        var expanded = expandedCenterValue()
+        expanded.y += contractionAmountValue() * (contractsUpwards ? -1 : 1)
+        return expanded
 	}
 	
 	func isContracted() -> Bool {
@@ -130,29 +128,27 @@ class HidingViewController {
 		return residual;
 	}
 	
-	func snap(contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
+    func snap(contract: Bool, animated: Bool = true, completion:((Void) -> Void)!) -> CGFloat {
+        func _snap() -> CGFloat {
+            if let child = self.child {
+                return contract && child.isContracted()
+                    ? self.contract()
+                    : self.expand()
+            }
+            return contract
+                ? self.contract()
+                : self.expand()
+        }
+        
+        guard animated else { let delta = _snap(); completion?(); return delta }
+        
 		var deltaY: CGFloat = 0
 		
 		UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
-			if let child = self.child {
-				if contract && child.isContracted() {
-					deltaY = self.contract()
-				} else {
-					deltaY = self.expand()
-				}
-                if let _ = child.deltaConstraint {
-                    child.view.superview?.layoutIfNeeded()
-                }
-			} else {
-				if contract {
-					deltaY = self.contract()
-				} else {
-					deltaY = self.expand()
-				}
-                if let _ = self.deltaConstraint {
-                    self.view.superview?.layoutIfNeeded()
-                }
-			}
+            deltaY = _snap()
+            if let _ = self.deltaConstraint {
+                self.view.superview?.layoutIfNeeded()
+            }
 		}) { (success: Bool) -> Void in
 			if completion != nil{
 				completion();

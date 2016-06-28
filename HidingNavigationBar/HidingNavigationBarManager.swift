@@ -315,11 +315,11 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		
 		// update the visible state
 		let state = currentState
-        if navBarController.view.center    == navBarController.expandedCenterValue()
+        if navBarController.view.center        == navBarController.expandedCenterValue()
             && extensionController.view.center == extensionController.expandedCenterValue()
             && tabBarController?.isExpanded() ?? true {
 			currentState = .Open
-        } else if navBarController.view.center    == navBarController.contractedCenterValue()
+        } else if navBarController.view.center == navBarController.contractedCenterValue()
             && extensionController.view.center == extensionController.contractedCenterValue()
             && tabBarController?.isContracted() ?? true {
 			currentState = .Closed
@@ -382,24 +382,35 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			if velocity > minVelocity { // if velocity is greater than minVelocity we expand
 				contracting = false
 			}
-			
-			let deltaY = navBarController.snap(contracting, completion: nil)
-			let tabBarShouldContract = deltaY < 0 || navBarController.isContracted()
-			tabBarController?.snap(tabBarShouldContract, completion: nil)
-			
-			var newContentOffset = scrollView.contentOffset
-			newContentOffset.y -= deltaY
-			
-			let contentInset = scrollView.contentInset
-			let top = contentInset.top + deltaY
+            
+            if let extensionView = extensionView where !contracting && extensionController.view.center == extensionController.contractedCenterValue() {
+                extensionView.frame.origin.y -= navBarController.expandedCenterValue().y - navBarController.view.center.y
+            }
 			
 			UIView.animateWithDuration(0.2){
+                let deltaY = self.navBarController.snap(contracting, animated: false, completion: nil)
+                let tabBarShouldContract = deltaY < 0 || self.navBarController.isContracted()
+                self.tabBarController?.snap(tabBarShouldContract, animated: false, completion: nil)
+                
+                var newContentOffset = self.scrollView.contentOffset
+                newContentOffset.y -= deltaY
+                
+                let contentInset = self.scrollView.contentInset
+                let top = contentInset.top + deltaY
+                
                 if let tabView = self.tabBarController?.view where self.viewController.view.containsSubview(tabView) {
                     self.updateScrollContentInsetBottom(self.viewController.view.frame.height - tabView.frame.minY, delegateCallback: false)
                 }
                 
 				self.updateScrollContentInsetTop(top)
 				self.scrollView.contentOffset = newContentOffset
+                
+                if let _ = self.tabBarController?.deltaConstraint {
+                    self.viewController.view.layoutIfNeeded()
+                }
+                if let extensionView = self.extensionView where !contracting {
+                    extensionView.frame.origin.y = 0
+                }
 			}
             
             previousYOffset = CGFloat.NaN
