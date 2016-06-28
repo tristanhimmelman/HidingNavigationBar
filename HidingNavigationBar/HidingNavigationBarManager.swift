@@ -111,9 +111,11 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 	
 	//MARK: Public methods
 
-	public func manageBottomBar(view: UIView){
-		tabBarController = HidingViewController(view: view)
-		tabBarController?.contractsUpwards = false
+	public func manageBottomBar(view: UIView, constraint: NSLayoutConstraint? = nil){
+        tabBarController = HidingViewController(view: view, constraint: constraint)
+        if constraint == nil {
+            tabBarController?.contractsUpwards = false
+        }
 		tabBarController?.expandedCenter = {[weak self] (view: UIView) -> CGPoint in
 			let height = self?.viewController.view.frame.size.height ?? 0
 			let point = CGPointMake(CGRectGetMidX(view.bounds), height - CGRectGetMidY(view.bounds))
@@ -313,12 +315,16 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		
 		// update the visible state
 		let state = currentState
-		if CGPointEqualToPoint(navBarController.view.center, navBarController.expandedCenterValue()) && CGPointEqualToPoint(extensionController.view.center, extensionController.expandedCenterValue()) {
+        if navBarController.view.center    == navBarController.expandedCenterValue()
+            && extensionController.view.center == extensionController.expandedCenterValue()
+            && tabBarController?.isExpanded() ?? true {
 			currentState = .Open
-		} else if CGPointEqualToPoint(navBarController.view.center, navBarController.contractedCenterValue()) &&  CGPointEqualToPoint(extensionController.view.center, extensionController.contractedCenterValue()) {
+        } else if navBarController.view.center    == navBarController.contractedCenterValue()
+            && extensionController.view.center == extensionController.contractedCenterValue()
+            && tabBarController?.isContracted() ?? true {
 			currentState = .Closed
 		}
-		
+        
 		if state != currentState {
 			delegate?.hidingNavigationBarManagerDidChangeState(self, toState: currentState)
 		}
@@ -332,10 +338,16 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		} else {
 			top = navBarBottomY
 		}
-		updateScrollContentInsetTop(top)
+        updateScrollContentInsetTop(top, delegateCallback: false)
+        
+        if let tabView = tabBarController?.view where viewController.view.containsSubview(tabView) {
+            updateScrollContentInsetBottom(viewController.view.frame.height - tabView.frame.minY, delegateCallback: false)
+        }
+        
+        delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
 	
-	private func updateScrollContentInsetTop(top: CGFloat){
+	private func updateScrollContentInsetTop(top: CGFloat, delegateCallback: Bool = true) {
         if viewController.automaticallyAdjustsScrollViewInsets {
             var contentInset = scrollView.contentInset
             contentInset.top = top
@@ -346,10 +358,20 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
         scrollView.scrollIndicatorInsets = scrollInsets
         delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
+    
+    private func updateScrollContentInsetBottom(bottom: CGFloat, delegateCallback: Bool = true) {
+        if viewController.automaticallyAdjustsScrollViewInsets {
+            scrollView.contentInset.bottom = bottom
+        }
+        scrollView.scrollIndicatorInsets.bottom = bottom
+        if delegateCallback {
+            delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
+        }
+    }
 	
 	private func handleScrollingEnded(velocity: CGFloat) {
 		let minVelocity: CGFloat = 500.0
-		if isViewControllerVisible() == false || (navBarController.isContracted() && velocity < minVelocity) {
+		if isViewControllerVisible() == false || (navBarController.isContracted() && (tabBarController?.isContracted() ?? true) && velocity < minVelocity) {
 			return
 		}
 		
@@ -362,7 +384,7 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			}
 			
 			let deltaY = navBarController.snap(contracting, completion: nil)
-			let tabBarShouldContract = deltaY < 0
+			let tabBarShouldContract = deltaY < 0 || navBarController.isContracted()
 			tabBarController?.snap(tabBarShouldContract, completion: nil)
 			
 			var newContentOffset = scrollView.contentOffset
@@ -372,6 +394,10 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 			let top = contentInset.top + deltaY
 			
 			UIView.animateWithDuration(0.2){
+                if let tabView = self.tabBarController?.view where self.viewController.view.containsSubview(tabView) {
+                    self.updateScrollContentInsetBottom(self.viewController.view.frame.height - tabView.frame.minY, delegateCallback: false)
+                }
+                
 				self.updateScrollContentInsetTop(top)
 				self.scrollView.contentOffset = newContentOffset
 			}
@@ -401,4 +427,18 @@ public class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestu
 		return true
 	}
 
+}
+
+private extension UIView {
+    func containsSubview(subview: UIView) -> Bool {
+        for view in subviews {
+            if view === subview {
+                return true
+            }
+            if view.containsSubview(subview) {
+                return true
+            }
+        }
+        return false
+    }
 }
