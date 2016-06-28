@@ -25,6 +25,8 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNavToolbar.gif)
 ###A UINavigationBar and a UITabBar
 ![Screenshot](https://raw.githubusercontent.com/tristanhimmelman/HidingNavigationBar/master/screenshots/hidingNavTabBar.gif)
+###A UINavigationBar and a custom footer view
+![Screenshot](https://raw.githubusercontent.com/Jake000/HidingNavigationBar/master/screenshots/hidingNavCustomFooter.gif)
 
 #Usage
 
