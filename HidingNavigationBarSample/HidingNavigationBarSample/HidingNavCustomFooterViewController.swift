@@ -90,10 +90,18 @@ class HidingNavCustomFooterViewController: UIViewController, UITableViewDataSour
         return true
     }
     
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Section \(section)"
+    }
+    
     // MARK: - Table view data source
     
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 5
+    }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 100
+        return 20
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
