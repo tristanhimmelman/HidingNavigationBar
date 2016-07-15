@@ -24,6 +24,7 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 		view.addSubview(tableView)
 
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
+        hidingNavBarManager?.delegate = self
     }
 	
 	override func viewWillAppear(animated: Bool) {
