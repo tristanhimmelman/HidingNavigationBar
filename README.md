@@ -130,7 +130,7 @@ If your using [Carthage](https://github.com/Carthage/Carthage), add the followin
 github "tristanhimmelman/HidingNavigationBar" ~> 0.3
 ```
 
-If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
+If you are using [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 
 `pod 'HidingNavigationBar', '~> 0.3'`
 
