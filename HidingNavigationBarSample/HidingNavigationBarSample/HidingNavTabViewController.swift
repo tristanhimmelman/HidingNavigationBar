@@ -24,7 +24,7 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 		tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
 		view.addSubview(tableView)
 		
-		let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: Selector("cancelButtonTouched"))
+		let cancelButton = UIBarButtonItem(title: "Cancel", style: .Plain, target: self, action: #selector(HidingNavTabViewController.cancelButtonTouched))
 		navigationItem.leftBarButtonItem = cancelButton
 		
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)

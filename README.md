@@ -28,9 +28,10 @@ HidingNavigationBar supports hiding/showing of the following view elements:
 
 #Usage
 
-1. Include a member variable of type `HidingNavigationBarManager` in your `UIViewController` subclass.
-2. Initialize the variable in `viewDidLoad` function, passing in the `UIViewController` instance and the `UIScrollView` instance that will control the hiding/showing of the navigation bar.
-3. Relay the following `UIViewController` lifecycle functions to the `HidingNavigationBarManager` variable:
+1. Import HidingNavigationBar
+2. Include a member variable of type `HidingNavigationBarManager` in your `UIViewController` subclass.
+3. Initialize the variable in `viewDidLoad` function, passing in the `UIViewController` instance and the `UIScrollView` instance that will control the hiding/showing of the navigation bar.
+4. Relay the following `UIViewController` lifecycle functions to the `HidingNavigationBarManager` variable:
 ```swift
 override func viewWillAppear(animated: Bool)
 override func viewWillDisappear(animated: Bool)
@@ -43,6 +44,8 @@ func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool
 
 Below is an example of how your UIViewController subclass should look:
 ```swift 
+import HidingNavigationBar
+
 class MyViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
 	var hidingNavBarManager: HidingNavigationBarManager?
@@ -100,6 +103,13 @@ if let tabBar = navigationController?.tabBarController?.tabBar {
 }
 ```
 
+###Hide/Show/Do Nothing when App is Foregrounded
+```swift
+	hidingNavBarManager?.onForegroundAction = .Default	//Do nothing, state of bars will remain the same as when backgrounded
+	hidingNavBarManager?.onForegroundAction = .Hide		//Always hide on foreground
+	hidingNavBarManager?.onForegroundAction = .Show 	//Always show on foreground
+```
+
 ###Expansion Resistance 
 When the navigation bar is hidden, you can some 'resitance' which adds a delay before the navigation bar starts to expand when scrolling. The resistance value is the distance that the user needs to scroll before the navigation bar starts to expand.
 ```swift
@@ -120,7 +130,7 @@ If your using [Carthage](https://github.com/Carthage/Carthage), add the followin
 github "tristanhimmelman/HidingNavigationBar" ~> 0.3
 ```
 
-If you are using [Cocoapods](https://cocoapods.org/), add the following line to your Podfile:
+If you are using [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 
 `pod 'HidingNavigationBar', '~> 0.3'`
 
