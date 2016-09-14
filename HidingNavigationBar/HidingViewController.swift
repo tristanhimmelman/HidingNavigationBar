@@ -24,27 +24,27 @@ class HidingViewController {
 	}
 	
 	init() {
-		view = UIView(frame: CGRectMake(0, 0, 0, 0))
-		view.backgroundColor = UIColor.clearColor()
-		view.autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
+		view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+		view.backgroundColor = UIColor.clear
+		view.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
 	}
 	
 	func expandedCenterValue() -> CGPoint {
 		if let expandedCenter = expandedCenter {
 			return expandedCenter(view)
 		}
-		return CGPointMake(0, 0)
+		return CGPoint(x: 0, y: 0)
 	}
 	
 	func contractionAmountValue() -> CGFloat {
-		return CGRectGetHeight(view.bounds)
+		return view.bounds.height
 	}
 	
 	func contractedCenterValue() -> CGPoint {
 		if contractsUpwards {
-			return CGPointMake(expandedCenterValue().x, expandedCenterValue().y - contractionAmountValue())
+			return CGPoint(x: expandedCenterValue().x, y: expandedCenterValue().y - contractionAmountValue())
 		} else {
-			return CGPointMake(expandedCenterValue().x, expandedCenterValue().y + contractionAmountValue())
+			return CGPoint(x: expandedCenterValue().x, y: expandedCenterValue().y + contractionAmountValue())
 		}
 	}
 	
@@ -64,7 +64,7 @@ class HidingViewController {
 		return height
 	}
 	
-	func setAlphaFadeEnabled(alphaFadeEnabled: Bool) {
+	func setAlphaFadeEnabled(_ alphaFadeEnabled: Bool) {
 		self.alphaFadeEnabled = alphaFadeEnabled
 	
 		if !alphaFadeEnabled {
@@ -72,11 +72,11 @@ class HidingViewController {
 		}
 	}
 	
-	func updateYOffset(delta: CGFloat) -> CGFloat {
+	func updateYOffset(_ delta: CGFloat) -> CGFloat {
 		var deltaY = delta
 		if child != nil && deltaY < 0 {
 			deltaY = child!.updateYOffset(deltaY)
-			child!.view.hidden = (deltaY) < 0;
+			child!.view.isHidden = (deltaY) < 0;
 		}
 		
 		var newYOffset = view.center.y + deltaY
@@ -86,7 +86,7 @@ class HidingViewController {
 			newYCenter = min(max(expandedCenterValue().y, newYOffset), contractedCenterValue().y)
 		}
 
-		view.center = CGPointMake(view.center.x, newYCenter)
+		view.center = CGPoint(x: view.center.x, y: newYCenter)
 
 		if alphaFadeEnabled {
 			var newAlpha: CGFloat = 1.0 - (expandedCenterValue().y - view.center.y) * 2 / contractionAmountValue()
@@ -99,16 +99,16 @@ class HidingViewController {
 		
 		if (child != nil && deltaY > 0 && residual > 0) {
 			residual = child!.updateYOffset(residual)
-			child!.view.hidden = residual - (newYOffset - newYCenter) > 0
+			child!.view.isHidden = residual - (newYOffset - newYCenter) > 0
 		}
 		
 		return residual;
 	}
 	
-	func snap(contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
+	func snap(_ contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
 		var deltaY: CGFloat = 0
 		
-		UIView.animateWithDuration(0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+		UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
 			if let child = self.child {
 				if contract && child.isContracted() {
 					deltaY = self.contract()
@@ -132,7 +132,7 @@ class HidingViewController {
 	}
 	
 	func expand() -> CGFloat {
-		view.hidden = false
+		view.isHidden = false
 		
 		if alphaFadeEnabled {
 			updateSubviewsToAlpha(1)
@@ -163,14 +163,14 @@ class HidingViewController {
 	
 	// MARK: - Private methods
 	
-	private func updateSubviewsToAlpha(alpha: CGFloat) {
+	fileprivate func updateSubviewsToAlpha(_ alpha: CGFloat) {
 		if navSubviews == nil {
 			navSubviews = []
 			
 			// loops through and subview and save the visible ones in navSubviews array
 			for subView in view.subviews {
 				let isBackgroundView = subView === view.subviews[0]
-				let isViewHidden = subView.hidden || Float(subView.alpha) < FLT_EPSILON
+				let isViewHidden = subView.isHidden || Float(subView.alpha) < FLT_EPSILON
 				
 				if isBackgroundView == false && isViewHidden == false {
 					navSubviews?.append(subView)

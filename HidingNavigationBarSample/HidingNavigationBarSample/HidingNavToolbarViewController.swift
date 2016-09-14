@@ -21,10 +21,10 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 		tableView = UITableView(frame: view.bounds)
 		tableView.dataSource = self
 		tableView.delegate = self
-		tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
+		tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
 		view.addSubview(tableView)
 		
-		toolbar = UIToolbar(frame: CGRectMake(0, view.bounds.size.height - 44, view.bounds.width, 44))
+		toolbar = UIToolbar(frame: CGRect(x: 0, y: view.bounds.size.height - 44, width: view.bounds.width, height: 44))
 		toolbar.barTintColor = UIColor(white: 230/255, alpha: 1)
 		view.addSubview(toolbar)
 		
@@ -32,7 +32,7 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 		hidingNavBarManager?.manageBottomBar(toolbar)
     }
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		hidingNavBarManager?.viewWillAppear(animated)
 	}
@@ -42,14 +42,14 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 		hidingNavBarManager?.viewDidLayoutSubviews()
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		hidingNavBarManager?.viewWillDisappear(animated)
 	}
 	
 	// MARK: UITableViewDelegate
 	
-	func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		hidingNavBarManager?.shouldScrollToTop()
 		
 		return true
@@ -57,24 +57,24 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: - Table view data source
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return 100
     }
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) 
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) 
 
         // Configure the cell...
-		cell.textLabel?.text = "row \(indexPath.row)"
-		cell.selectionStyle = UITableViewCellSelectionStyle.None
+		cell.textLabel?.text = "row \((indexPath as NSIndexPath).row)"
+		cell.selectionStyle = UITableViewCellSelectionStyle.none
 
         return cell
     }

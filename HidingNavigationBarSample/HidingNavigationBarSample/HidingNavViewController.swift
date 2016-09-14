@@ -20,14 +20,14 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 		tableView = UITableView(frame: view.bounds)
 		tableView.dataSource = self
 		tableView.delegate = self
-		tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
+		tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
 		view.addSubview(tableView)
 
 		hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
         hidingNavBarManager?.delegate = self
     }
 	
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		
 		hidingNavBarManager?.viewWillAppear(animated)
@@ -38,14 +38,14 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 		hidingNavBarManager?.viewDidLayoutSubviews()
 	}
 	
-	override func viewWillDisappear(animated: Bool) {
+	override func viewWillDisappear(_ animated: Bool) {
 		super.viewWillDisappear(animated)
 		hidingNavBarManager?.viewWillDisappear(animated)
 	}
 
 	// MARK: UITableViewDelegate
 	
-	func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
 		hidingNavBarManager?.shouldScrollToTop()
 		
 		return true
@@ -53,35 +53,35 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 	
     // MARK: - UITableViewDataSource
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
         return 100
     }
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath) 
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath) 
 
         // Configure the cell...
-		cell.textLabel?.text = "row \(indexPath.row)"
-		cell.selectionStyle = UITableViewCellSelectionStyle.None
+		cell.textLabel?.text = "row \((indexPath as NSIndexPath).row)"
+		cell.selectionStyle = UITableViewCellSelectionStyle.none
 
         return cell
     }
     
     // MARK: - HidingNavigationBarManagerDelegate
     
-    func hidingNavigationBarManagerDidChangeState(manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
+    func hidingNavigationBarManagerDidChangeState(_ manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
         
     }
     
-    func hidingNavigationBarManagerDidUpdateScrollViewInsets(manager: HidingNavigationBarManager) {
+    func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager) {
         
     }
 }

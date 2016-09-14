@@ -21,10 +21,10 @@ class MasterViewController: UITableViewController {
 		}
 	}
 	
-	func styleNavigationController(navigationController: UINavigationController){
-		navigationController.navigationBar.translucent = true
-		navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-		navigationController.navigationBar.tintColor = UIColor.whiteColor()
+	func styleNavigationController(_ navigationController: UINavigationController){
+		navigationController.navigationBar.isTranslucent = true
+		navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+		navigationController.navigationBar.tintColor = UIColor.white
 		navigationController.navigationBar.barTintColor = UIColor(red: 41/255, green: 141/255, blue: 250/255, alpha: 1)
 	}
 
@@ -36,48 +36,48 @@ class MasterViewController: UITableViewController {
 
 	// MARK: - Table View
 
-	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+	override func numberOfSections(in tableView: UITableView) -> Int {
 		return 1
 	}
 
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return rows.count
 	}
 
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+	override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) 
 		
-		cell.textLabel?.font = UIFont.systemFontOfSize(16)
-		cell.textLabel?.text = rows[indexPath.row]
+		cell.textLabel?.font = UIFont.systemFont(ofSize: 16)
+		cell.textLabel?.text = rows[(indexPath as NSIndexPath).row]
 		
 		return cell
 	}
 	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		tableView.deselectRowAtIndexPath(indexPath, animated: true)
+	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		tableView.deselectRow(at: indexPath, animated: true)
 		
-		if indexPath.row == 0 {
+		if (indexPath as NSIndexPath).row == 0 {
 			let controller = HidingNavViewController()
 			navigationController?.pushViewController(controller, animated: true)
-		} else if indexPath.row == 1 {
+		} else if (indexPath as NSIndexPath).row == 1 {
 			let controller = HidingNavExtensionViewController()
 			navigationController?.pushViewController(controller, animated: true)
-		} else if indexPath.row == 2 {
+		} else if (indexPath as NSIndexPath).row == 2 {
 			let controller = HidingNavToolbarViewController()
 			navigationController?.pushViewController(controller, animated: true)
 		} else {
 			let controller1 = HidingNavTabViewController()
 			let navController1 = UINavigationController(rootViewController: controller1)
-			navController1.tabBarItem = UITabBarItem(tabBarSystemItem: .MostRecent, tag: 0)
+			navController1.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
 			styleNavigationController(navController1)
 			let controller2 = HidingNavTabViewController()
 			let navController2 = UINavigationController(rootViewController: controller2)
-			navController2.tabBarItem = UITabBarItem(tabBarSystemItem: .Favorites, tag: 1)
+			navController2.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
 			styleNavigationController(navController2)
 			
 			let tabBarController = UITabBarController()
 			tabBarController.viewControllers = [navController1, navController2]
-			navigationController?.presentViewController(tabBarController, animated: true, completion: nil)
+			navigationController?.present(tabBarController, animated: true, completion: nil)
 		}
 		
 
