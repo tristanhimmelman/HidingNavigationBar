@@ -338,7 +338,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		}
         updateScrollContentInsetTop(top, delegateCallback: false)
         
-        if let tabView = tabBarController?.view where viewController.view.containsSubview(tabView) {
+        if let tabView = tabBarController?.view, viewController.view.contains(subview: tabView) {
             updateScrollContentInsetBottom(viewController.view.frame.height - tabView.frame.minY, delegateCallback: false)
         }
         
@@ -357,7 +357,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
         delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
     
-    private func updateScrollContentInsetBottom(bottom: CGFloat, delegateCallback: Bool = true) {
+    fileprivate func updateScrollContentInsetBottom(_ bottom: CGFloat, delegateCallback: Bool = true) {
         if viewController.automaticallyAdjustsScrollViewInsets {
             scrollView.contentInset.bottom = bottom
         }
@@ -381,7 +381,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 				contracting = false
 			}
             
-            if let extensionView = extensionView where !contracting && extensionController.view.center == extensionController.contractedCenterValue() {
+            if let extensionView = extensionView, !contracting && extensionController.view.center == extensionController.contractedCenterValue() {
                 extensionView.frame.origin.y -= navBarController.expandedCenterValue().y - navBarController.view.center.y
             }
 			
@@ -396,7 +396,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
                 let contentInset = self.scrollView.contentInset
                 let top = contentInset.top + deltaY
                 
-                if let tabView = self.tabBarController?.view where self.viewController.view.containsSubview(tabView) {
+                if let tabView = self.tabBarController?.view, self.viewController.view.contains(subview: tabView) {
                     self.updateScrollContentInsetBottom(self.viewController.view.frame.height - tabView.frame.minY, delegateCallback: false)
                 }
                 
@@ -406,10 +406,10 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
                 if let _ = self.tabBarController?.deltaConstraint {
                     self.viewController.view.layoutIfNeeded()
                 }
-                if let extensionView = self.extensionView where !contracting {
+                if let extensionView = self.extensionView, !contracting {
                     extensionView.frame.origin.y = 0
                 }
-			}
+			})
             
             previousYOffset = CGFloat.nan
 		}
@@ -439,12 +439,12 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 }
 
 private extension UIView {
-    func containsSubview(subview: UIView) -> Bool {
+    func contains(subview: UIView) -> Bool {
         for view in subviews {
             if view === subview {
                 return true
             }
-            if view.containsSubview(subview) {
+            if view.contains(subview: subview) {
                 return true
             }
         }

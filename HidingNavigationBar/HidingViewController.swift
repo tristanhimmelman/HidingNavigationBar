@@ -108,7 +108,7 @@ class HidingViewController {
                 ? max(min(deltaConstraint.constant - deltaY,  view.bounds.height), 0)
                 : min(max(deltaConstraint.constant + deltaY, -view.bounds.height), 0)
         } else {
-            view.center = CGPointMake(view.center.x, newYCenter)
+            view.center = CGPoint(x: view.center.x, y: newYCenter)
         }
 
 		if alphaFadeEnabled {
