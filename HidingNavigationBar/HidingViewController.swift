@@ -19,26 +19,33 @@ class HidingViewController {
 	
 	var alphaFadeEnabled = false
 	var contractsUpwards = true
+    
+    private var needsConstraintBasedContractsUpwardsUpdate: Bool
 	
 	init(view: UIView, constraint: NSLayoutConstraint? = nil) {
 		self.view = view
         self.deltaConstraint = constraint
-        
-        if let constraint = constraint {
-            view.superview?.layoutIfNeeded()
-            let oldMinY = view.frame.minY
-            constraint.constant += 1
-            view.superview?.layoutIfNeeded()
-            self.contractsUpwards = view.frame.minY > oldMinY
-            constraint.constant -= 1
-        }
+        self.needsConstraintBasedContractsUpwardsUpdate = constraint != nil
 	}
 	
 	init() {
 		view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 		view.backgroundColor = UIColor.clear
 		view.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        needsConstraintBasedContractsUpwardsUpdate = false
 	}
+    
+    func updateContractsUpwardsIfNeeded() {
+        guard let deltaConstraint = deltaConstraint, needsConstraintBasedContractsUpwardsUpdate else { return }
+        
+        needsConstraintBasedContractsUpwardsUpdate = false
+        view.superview?.layoutIfNeeded()
+        let oldMinY = view.frame.minY
+        deltaConstraint.constant += 1
+        view.superview?.layoutIfNeeded()
+        self.contractsUpwards = view.frame.minY > oldMinY
+        deltaConstraint.constant -= 1
+    }
 	
 	func expandedCenterValue() -> CGPoint {
 		if let expandedCenter = expandedCenter {

@@ -143,6 +143,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	}
 	
 	open func viewDidLayoutSubviews() {
+        navBarController.updateContractsUpwardsIfNeeded()
+        extensionController.updateContractsUpwardsIfNeeded()
+        tabBarController?.updateContractsUpwardsIfNeeded()
 		updateContentInsets()
 	}
 	
@@ -354,7 +357,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
         var scrollInsets = scrollView.scrollIndicatorInsets
         scrollInsets.top = top
         scrollView.scrollIndicatorInsets = scrollInsets
-        delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
+        if delegateCallback {
+            delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
+        }
 	}
     
     fileprivate func updateScrollContentInsetBottom(_ bottom: CGFloat, delegateCallback: Bool = true) {
@@ -388,7 +393,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			UIView.animate(withDuration: 0.2, animations: {
                 let deltaY = self.navBarController.snap(contracting, animated: false, completion: nil)
                 let tabBarShouldContract = deltaY < 0 || self.navBarController.isContracted()
-                self.tabBarController?.snap(tabBarShouldContract, animated: false, completion: nil)
+                _ = self.tabBarController?.snap(tabBarShouldContract, animated: false, completion: nil)
                 
                 var newContentOffset = self.scrollView.contentOffset
                 newContentOffset.y -= deltaY
