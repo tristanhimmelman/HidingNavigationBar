@@ -61,7 +61,7 @@ class HidingNavExtensionViewController: UIViewController, UITableViewDataSource,
 
     // MARK: - Table view data source
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "section \(section)"
     }
 

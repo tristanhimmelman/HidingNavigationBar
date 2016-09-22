@@ -23,51 +23,51 @@ class HidingNavCustomFooterViewController: UIViewController, UITableViewDataSour
         tableView = UITableView(frame: view.bounds)
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.registerClass(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: identifier)
         view.addSubview(tableView)
         
         customFooter = UIView()
-        customFooter.backgroundColor = .orangeColor()
+        customFooter.backgroundColor = .orange
         customFooter.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(customFooter)
         
         let label = UILabel()
-        label.textColor = .whiteColor()
+        label.textColor = .white
         label.text = "Custom footer view"
         label.translatesAutoresizingMaskIntoConstraints = false
         customFooter.addSubview(label)
         
         var constraints: [NSLayoutConstraint] = [
-            NSLayoutConstraint(item: label, attribute: .CenterX, relatedBy: .Equal, toItem: customFooter, attribute: .CenterX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: label, attribute: .CenterY, relatedBy: .Equal, toItem: customFooter, attribute: .CenterY, multiplier: 1, constant: 0)
+            NSLayoutConstraint(item: label, attribute: .centerX, relatedBy: .equal, toItem: customFooter, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: label, attribute: .centerY, relatedBy: .equal, toItem: customFooter, attribute: .centerY, multiplier: 1, constant: 0)
         ]
         
         if hasFooterVisibleBar {
             let visibleBar = UILabel()
             visibleBar.translatesAutoresizingMaskIntoConstraints = false
-            visibleBar.textColor = .whiteColor()
+            visibleBar.textColor = .white
             visibleBar.text = "Always visible"
-            visibleBar.textAlignment = .Center
-            visibleBar.backgroundColor = .brownColor()
+            visibleBar.textAlignment = .center
+            visibleBar.backgroundColor = .brown
             customFooter.addSubview(visibleBar)
             
-            constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[bar]|", options: [], metrics: nil, views: ["bar": visibleBar])
-            constraints += NSLayoutConstraint.constraintsWithVisualFormat("V:|[bar(==30)]", options: [], metrics: nil, views: ["bar": visibleBar])
-            constraints.append(NSLayoutConstraint(item: visibleBar, attribute: .Bottom, relatedBy: .LessThanOrEqual, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0))
+            constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|[bar]|", options: [], metrics: nil, views: ["bar": visibleBar])
+            constraints += NSLayoutConstraint.constraints(withVisualFormat: "V:|[bar(==30)]", options: [], metrics: nil, views: ["bar": visibleBar])
+            constraints.append(NSLayoutConstraint(item: visibleBar, attribute: .bottom, relatedBy: .lessThanOrEqual, toItem: view, attribute: .bottom, multiplier: 1, constant: 0))
         }
 
-        constraints += NSLayoutConstraint.constraintsWithVisualFormat("H:|[footer]|", options: [], metrics: nil, views: ["footer": customFooter])
-        let bottomEdgeConstraint = NSLayoutConstraint(item: customFooter, attribute: .Bottom, relatedBy: .Equal, toItem: view, attribute: .Bottom, multiplier: 1, constant: 0)
+        constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|[footer]|", options: [], metrics: nil, views: ["footer": customFooter])
+        let bottomEdgeConstraint = NSLayoutConstraint(item: customFooter, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
         constraints.append(bottomEdgeConstraint)
         bottomEdgeConstraint.priority = 500
-        constraints.append(NSLayoutConstraint(item: customFooter, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: 100))
-        NSLayoutConstraint.activateConstraints(constraints)
+        constraints.append(NSLayoutConstraint(item: customFooter, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
+        NSLayoutConstraint.activate(constraints)
         
         hidingNavBarManager = HidingNavigationBarManager(viewController: self, scrollView: tableView)
         hidingNavBarManager?.manageBottomBar(customFooter, constraint: bottomEdgeConstraint)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         hidingNavBarManager?.viewWillAppear(animated)
     }
@@ -77,37 +77,37 @@ class HidingNavCustomFooterViewController: UIViewController, UITableViewDataSour
         hidingNavBarManager?.viewDidLayoutSubviews()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         hidingNavBarManager?.viewWillDisappear(animated)
     }
     
     // MARK: UITableViewDelegate
     
-    func scrollViewShouldScrollToTop(scrollView: UIScrollView) -> Bool {
+    func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
         hidingNavBarManager?.shouldScrollToTop()
         
         return true
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "Section \(section)"
     }
     
     // MARK: - Table view data source
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 5
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 20
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier, forIndexPath: indexPath)
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier, for: indexPath)
         cell.textLabel?.text = "row \(indexPath.row)"
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
 }

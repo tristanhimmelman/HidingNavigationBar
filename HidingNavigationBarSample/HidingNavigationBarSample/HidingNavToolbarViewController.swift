@@ -57,7 +57,7 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 
     // MARK: - Table view data source
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return "section \(section)"
     }
 
