@@ -26,6 +26,12 @@ public enum HidingNavigationForegroundAction {
 	case hide
 }
 
+public protocol RefreshableControl {
+    var isRefreshing: Bool { get }
+}
+
+extension UIRefreshControl: RefreshableControl { }
+
 open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGestureRecognizerDelegate {
 	// The view controller that is part of the navigation stack
 	unowned var viewController: UIViewController
@@ -42,7 +48,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	weak open var delegate: HidingNavigationBarManagerDelegate?
 	
-	open var refreshControl: UIRefreshControl?
+	open var refreshControl: RefreshableControl?
 	
 	fileprivate var navBarController: HidingViewController
 	fileprivate var extensionController: HidingViewController
