@@ -82,7 +82,7 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager) {
-        print("kek")
+        
     }
 
     func hidingNavigationBarManagerShouldUpdateScrollViewInsets(_ manager: HidingNavigationBarManager, insets: UIEdgeInsets) -> Bool {

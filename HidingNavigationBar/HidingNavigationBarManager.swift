@@ -165,6 +165,8 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			extensionController.view.frame = frame
 		}
 
+        updateContentInsets()
+
 		if scrolledToTop {
 			var offset = scrollView.contentOffset
 			offset.y = -scrollView.contentInset.top
