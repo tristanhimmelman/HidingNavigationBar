@@ -62,7 +62,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	open var onForegroundAction = HidingNavigationForegroundAction.default
 
     //Prevent NavgationBar is Hiding
-    var preventFromHidingNavigationBar: Bool = false
+    open var preventFromHidingNavigationBar: Bool = false
 	
 	public init(viewController: UIViewController, scrollView: UIScrollView){
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
