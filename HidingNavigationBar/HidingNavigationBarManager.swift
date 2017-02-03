@@ -60,6 +60,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 
 	//Options
 	open var onForegroundAction = HidingNavigationForegroundAction.default
+
+    //Prevent NavgationBar is Hiding
+    var preventFromHidingNavigationBar: Bool = false
 	
 	public init(viewController: UIViewController, scrollView: UIScrollView){
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
@@ -180,12 +183,16 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		let top = statusBarHeight() + navBarController.totalHeight()
 		updateScrollContentInsetTop(top)
 
-		_ = navBarController.snap(false, completion: nil)
+        if preventFromHidingNavigationBar == false {
+            _ = navBarController.snap(false, completion: nil)
+        }
 		_ = tabBarController?.snap(false, completion: nil)
 	}
 	
 	open func contract(){
-		_ = navBarController.contract()
+        if preventFromHidingNavigationBar == false {
+            _ = navBarController.contract()
+        }
 		_ = tabBarController?.contract()
 		
 		previousYOffset = CGFloat.nan
@@ -194,7 +201,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	}
 	
 	open func expand() {
-		_ = navBarController.expand()
+        if preventFromHidingNavigationBar == false {
+            _ = navBarController.expand()
+        }
 		_ = tabBarController?.expand()
 		
 		previousYOffset = CGFloat.nan
@@ -207,10 +216,14 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	func applicationWillEnterForeground() {
 		switch onForegroundAction {
 		case .show:
-			_ = navBarController.expand()
+            if preventFromHidingNavigationBar == false {
+                _ = navBarController.expand()
+            }
 			_ = tabBarController?.expand()
 		case .hide:
-			_ = navBarController.contract()
+            if preventFromHidingNavigationBar == false {
+                _ = navBarController.contract()
+            }
 			_ = tabBarController?.contract()
 		default:
 			break;
@@ -300,7 +313,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			}
 			
 			// 6 - Update the shyViewController
-			_ = navBarController.updateYOffset(deltaY)
+            if preventFromHidingNavigationBar == false {
+                _ = navBarController.updateYOffset(deltaY)
+            }
 			_ = tabBarController?.updateYOffset(deltaY)
 		}
 		
