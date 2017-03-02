@@ -13,21 +13,39 @@ class HidingViewController {
 	var child: HidingViewController?
 	var navSubviews: [UIView]?
 	var view: UIView
+    var deltaConstraint: NSLayoutConstraint?
 	
 	var expandedCenter: ((UIView) -> CGPoint)?
 	
 	var alphaFadeEnabled = false
 	var contractsUpwards = true
+    
+    private var needsConstraintBasedContractsUpwardsUpdate: Bool
 	
-	init(view: UIView) {
+	init(view: UIView, constraint: NSLayoutConstraint? = nil) {
 		self.view = view
+        self.deltaConstraint = constraint
+        self.needsConstraintBasedContractsUpwardsUpdate = constraint != nil
 	}
 	
 	init() {
 		view = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
 		view.backgroundColor = UIColor.clear
 		view.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        needsConstraintBasedContractsUpwardsUpdate = false
 	}
+    
+    func updateContractsUpwardsIfNeeded() {
+        guard let deltaConstraint = deltaConstraint, needsConstraintBasedContractsUpwardsUpdate else { return }
+        
+        needsConstraintBasedContractsUpwardsUpdate = false
+        view.superview?.layoutIfNeeded()
+        let oldMinY = view.frame.minY
+        deltaConstraint.constant += 1
+        view.superview?.layoutIfNeeded()
+        self.contractsUpwards = view.frame.minY > oldMinY
+        deltaConstraint.constant -= 1
+    }
 	
 	func expandedCenterValue() -> CGPoint {
 		if let expandedCenter = expandedCenter {
@@ -41,19 +59,25 @@ class HidingViewController {
 	}
 	
 	func contractedCenterValue() -> CGPoint {
-		if contractsUpwards {
-			return CGPoint(x: expandedCenterValue().x, y: expandedCenterValue().y - contractionAmountValue())
-		} else {
-			return CGPoint(x: expandedCenterValue().x, y: expandedCenterValue().y + contractionAmountValue())
-		}
+        var expanded = expandedCenterValue()
+        expanded.y += contractionAmountValue() * (contractsUpwards ? -1 : 1)
+        return expanded
 	}
 	
 	func isContracted() -> Bool {
-		return Float(fabs(view.center.y - contractedCenterValue().y)) < FLT_EPSILON
+        if let deltaConstraint = deltaConstraint {
+            return deltaConstraint.constant == view.bounds.height * (contractsUpwards ? 1 : -1)
+        } else {
+            return Float(fabs(view.center.y - contractedCenterValue().y)) < FLT_EPSILON
+        }
 	}
 	
 	func isExpanded() -> Bool {
-		return Float(fabs(view.center.y - expandedCenterValue().y)) < FLT_EPSILON
+        if let deltaConstraint = deltaConstraint {
+            return deltaConstraint.constant == 0
+        } else {
+            return Float(fabs(view.center.y - expandedCenterValue().y)) < FLT_EPSILON
+        }
 	}
 	
 	func totalHeight() -> CGFloat {
@@ -86,7 +110,13 @@ class HidingViewController {
 			newYCenter = min(max(expandedCenterValue().y, newYOffset), contractedCenterValue().y)
 		}
 
-		view.center = CGPoint(x: view.center.x, y: newYCenter)
+        if let deltaConstraint = deltaConstraint {
+            deltaConstraint.constant = contractsUpwards
+                ? max(min(deltaConstraint.constant - deltaY,  view.bounds.height), 0)
+                : min(max(deltaConstraint.constant + deltaY, -view.bounds.height), 0)
+        } else {
+            view.center = CGPoint(x: view.center.x, y: newYCenter)
+        }
 
 		if alphaFadeEnabled {
 			var newAlpha: CGFloat = 1.0 - (expandedCenterValue().y - view.center.y) * 2 / contractionAmountValue()
@@ -105,23 +135,27 @@ class HidingViewController {
 		return residual;
 	}
 	
-	func snap(_ contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
+    func snap(_ contract: Bool, animated: Bool = true, completion:((Void) -> Void)!) -> CGFloat {
+        func _snap() -> CGFloat {
+            if let child = self.child {
+                return contract && child.isContracted()
+                    ? self.contract()
+                    : self.expand()
+            }
+            return contract
+                ? self.contract()
+                : self.expand()
+        }
+        
+        guard animated else { let delta = _snap(); completion?(); return delta }
+        
 		var deltaY: CGFloat = 0
 		
 		UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
-			if let child = self.child {
-				if contract && child.isContracted() {
-					deltaY = self.contract()
-				} else {
-					deltaY = self.expand()
-				}
-			} else {
-				if contract {
-					deltaY = self.contract()
-				} else {
-					deltaY = self.expand()
-				}
-			}
+            deltaY = _snap()
+            if let _ = self.deltaConstraint {
+                self.view.superview?.layoutIfNeeded()
+            }
 		}) { (success: Bool) -> Void in
 			if completion != nil{
 				completion();
@@ -141,7 +175,11 @@ class HidingViewController {
 		
 		var amountToMove = expandedCenterValue().y - view.center.y
 		
-		view.center = expandedCenterValue()
+        if let deltaConstraint = deltaConstraint {
+            deltaConstraint.constant = 0
+        } else {
+            view.center = expandedCenterValue()
+        }
 		if let child = child {
 			amountToMove += child.expand()
 		}
@@ -156,7 +194,11 @@ class HidingViewController {
 		
 		let amountToMove = contractedCenterValue().y - view.center.y
 		
-		view.center = contractedCenterValue()
+        if let deltaConstraint = deltaConstraint {
+            deltaConstraint.constant = view.bounds.height * (contractsUpwards ? 1 : -1)
+        } else {
+            view.center = contractedCenterValue()
+        }
 		
 		return amountToMove;
 	}
