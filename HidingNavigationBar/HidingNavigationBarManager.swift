@@ -9,6 +9,7 @@
 import UIKit
 
 public protocol HidingNavigationBarManagerDelegate: class {
+    func hidingNavigationBarManagerShouldUpdateScrollViewInsets(_ manager: HidingNavigationBarManager, insets: UIEdgeInsets) -> Bool
 	func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager)
 	func hidingNavigationBarManagerDidChangeState(_ manager: HidingNavigationBarManager, toState state: HidingNavigationBarState)
 }
@@ -163,9 +164,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			frame.size.height = extensionView.bounds.size.height
 			extensionController.view.frame = frame
 		}
-		
-		updateContentInsets()
-		
+
+        updateContentInsets()
+
 		if scrolledToTop {
 			var offset = scrollView.contentOffset
 			offset.y = -scrollView.contentInset.top
@@ -333,7 +334,12 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		updateScrollContentInsetTop(top)
 	}
 	
-	fileprivate func updateScrollContentInsetTop(_ top: CGFloat){
+	fileprivate func updateScrollContentInsetTop(_ top: CGFloat) {
+        let contentInset = UIEdgeInsets(top: top, left: scrollView.contentInset.top, bottom: scrollView.contentInset.left, right: scrollView.contentInset.right)
+        if delegate?.hidingNavigationBarManagerShouldUpdateScrollViewInsets(self, insets: contentInset) == false {
+            return
+        }
+        
         if viewController.automaticallyAdjustsScrollViewInsets {
             var contentInset = scrollView.contentInset
             contentInset.top = top
