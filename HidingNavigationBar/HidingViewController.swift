@@ -49,11 +49,11 @@ class HidingViewController {
 	}
 	
 	func isContracted() -> Bool {
-		return Float(fabs(view.center.y - contractedCenterValue().y)) < FLT_EPSILON
+		return Float(fabs(view.center.y - contractedCenterValue().y)) < .ulpOfOne
 	}
 	
 	func isExpanded() -> Bool {
-		return Float(fabs(view.center.y - expandedCenterValue().y)) < FLT_EPSILON
+		return Float(fabs(view.center.y - expandedCenterValue().y)) < .ulpOfOne
 	}
 	
 	func totalHeight() -> CGFloat {
@@ -90,7 +90,7 @@ class HidingViewController {
 
 		if alphaFadeEnabled {
 			var newAlpha: CGFloat = 1.0 - (expandedCenterValue().y - view.center.y) * 2 / contractionAmountValue()
-			newAlpha = CGFloat(min(max(FLT_EPSILON, Float(newAlpha)), 1.0))
+			newAlpha = CGFloat(min(max(.ulpOfOne, Float(newAlpha)), 1.0))
 			
 			updateSubviewsToAlpha(newAlpha)
 		}
@@ -170,7 +170,7 @@ class HidingViewController {
 			// loops through and subview and save the visible ones in navSubviews array
 			for subView in view.subviews {
 				let isBackgroundView = subView === view.subviews[0]
-				let isViewHidden = subView.isHidden || Float(subView.alpha) < FLT_EPSILON
+				let isViewHidden = subView.isHidden || Float(subView.alpha) < .ulpOfOne
 				
 				if isBackgroundView == false && isViewHidden == false {
 					navSubviews?.append(subView)
