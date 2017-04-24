@@ -10,7 +10,7 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 	
-	let rows = ["Hiding Nav Bar", "Hiding Nav Bar + Extension View", "Hiding Nav Bar + Toolbar", "Hiding Nav Bar + TabBar"]
+	let rows = ["Hiding Nav Bar", "Hiding Nav Bar + Extension View", "Hiding Nav Bar + Toolbar", "Hiding Nav Bar + TabBar", "Hiding Nav Bar + Change Bar Item"]
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -65,7 +65,7 @@ class MasterViewController: UITableViewController {
 		} else if (indexPath as NSIndexPath).row == 2 {
 			let controller = HidingNavToolbarViewController()
 			navigationController?.pushViewController(controller, animated: true)
-		} else {
+		} else if (indexPath as NSIndexPath).row == 3 {
 			let controller1 = HidingNavTabViewController()
 			let navController1 = UINavigationController(rootViewController: controller1)
 			navController1.tabBarItem = UITabBarItem(tabBarSystemItem: .mostRecent, tag: 0)
@@ -78,8 +78,10 @@ class MasterViewController: UITableViewController {
 			let tabBarController = UITabBarController()
 			tabBarController.viewControllers = [navController1, navController2]
 			navigationController?.present(tabBarController, animated: true, completion: nil)
+		} else {
+			let controller = HidingNavChangeBarItemViewController()
+			navigationController?.pushViewController(controller, animated: true)
 		}
-		
 
 	}
 }

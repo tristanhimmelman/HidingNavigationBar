@@ -62,6 +62,13 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	//Options
 	open var onForegroundAction = HidingNavigationForegroundAction.default
 	
+	// Wait update navigationBarItem when Expanding or Contracting animating
+	public typealias UpdateNavigationBarItemBlock = () -> Void
+	fileprivate var updateNavigationBarItemBlocks = [UpdateNavigationBarItemBlock]()
+	
+	// Expanding or Contracting animating
+	fileprivate var isAnimating = false
+	
 	public init(viewController: UIViewController, scrollView: UIScrollView){
 		if viewController.navigationController == nil || viewController.navigationController?.navigationBar == nil {
 			fatalError("ViewController must be within a UINavigationController")
@@ -174,6 +181,13 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		}
 		
 		isUpdatingValues = false
+	}
+	
+	open func updateNavigationBarItem(block: @escaping UpdateNavigationBarItemBlock) {
+		updateNavigationBarItemBlocks.append(block)
+		if !isAnimating {
+			executeUpdateNavigationBarItemBlocks()
+		}
 	}
 	
 	open func shouldScrollToTop(){
@@ -351,6 +365,19 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
         delegate?.hidingNavigationBarManagerDidUpdateScrollViewInsets(self)
 	}
 	
+	fileprivate func executeUpdateNavigationBarItemBlocks() {
+		if !updateNavigationBarItemBlocks.isEmpty {
+			for updateNavigarionBarItemBlock in updateNavigationBarItemBlocks {
+				updateNavigarionBarItemBlock()
+			}
+			updateNavigationBarItemBlocks.removeAll()
+			
+			// refresh navigationBarItem
+			navBarController.navSubviews = nil
+			_ = navBarController.updateYOffset(0)
+		}
+	}
+	
 	fileprivate func handleScrollingEnded(_ velocity: CGFloat) {
 		let minVelocity: CGFloat = 500.0
 		if isViewControllerVisible() == false || (navBarController.isContracted() && velocity < minVelocity) {
@@ -375,9 +402,13 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			let contentInset = scrollView.contentInset
 			let top = contentInset.top + deltaY
 			
+			isAnimating = true
 			UIView.animate(withDuration: 0.2, animations: {
 				self.updateScrollContentInsetTop(top)
 				self.scrollView.contentOffset = newContentOffset
+			}, completion: { (finished) in
+				self.isAnimating = false
+				self.executeUpdateNavigationBarItemBlocks()
 			})
             
             previousYOffset = CGFloat.nan
