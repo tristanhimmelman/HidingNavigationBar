@@ -216,6 +216,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		default:
 			break;
 		}
+		handleScrolling()
 	}
 	
 	//MARK: Private methods
