@@ -54,9 +54,8 @@ class HidingNavExtensionViewController: UIViewController, UITableViewDataSource,
 	// MARK: UITableViewDelegate
 	
 	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		hidingNavBarManager?.shouldScrollToTop()
-		
-		return true
+        guard let shouldScroll = hidingNavBarManager?.shouldScrollToTop() else { return true }
+        return shouldScroll
 	}
 
     // MARK: - Table view data source
