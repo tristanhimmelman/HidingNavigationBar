@@ -154,7 +154,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		
 		var scrolledToTop = false
 		
-		if scrollView.contentInset.top == -scrollView.contentOffset.y {
+		if scrollViewContentInset.top == -scrollView.contentOffset.y {
 			scrolledToTop = true
 		}
 		
@@ -169,20 +169,23 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 
 		if scrolledToTop {
 			var offset = scrollView.contentOffset
-			offset.y = -scrollView.contentInset.top
+			offset.y = -scrollViewContentInset.top
 			scrollView.contentOffset = offset
 		}
 		
 		isUpdatingValues = false
 	}
 	
-	open func shouldScrollToTop(){
+	open func shouldScrollToTop() -> Bool{
 		// update content Inset
 		let top = statusBarHeight() + navBarController.totalHeight()
 		updateScrollContentInsetTop(top)
 
 		_ = navBarController.snap(false, completion: nil)
 		_ = tabBarController?.snap(false, completion: nil)
+        
+        scrollView.setContentOffset(CGPoint(x: 0.0, y: -top), animated: true)   // update scroll offset manually
+        return false    // disable iOS default behaviour
 	}
 	
 	open func contract(){
@@ -236,7 +239,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	fileprivate func shouldHandleScrolling() -> Bool {
 		// if scrolling down past top
-		if scrollView.contentOffset.y <= -scrollView.contentInset.top && currentState == .Open {
+		if scrollView.contentOffset.y <= -scrollViewContentInset.top && currentState == .Open {
 			return false
 		}
 		
@@ -245,7 +248,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			return false
 		}
 		
-		let scrollFrame = UIEdgeInsetsInsetRect(scrollView.bounds, scrollView.contentInset)
+		let scrollFrame = UIEdgeInsetsInsetRect(scrollView.bounds, scrollViewContentInset)
 		let scrollableAmount: CGFloat = scrollView.contentSize.height - scrollFrame.height
 		let scrollViewIsSuffecientlyLong: Bool = scrollableAmount > navBarController.totalHeight() * 3
 		
@@ -268,7 +271,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			}
 			
 			/* rounding to resolve a dumb issue with the contentOffset value */
-			let end = floor(scrollView.contentSize.height - scrollView.bounds.height + scrollView.contentInset.bottom - 0.5)
+			let end = floor(scrollView.contentSize.height - scrollView.bounds.height + scrollViewContentInset.bottom - 0.5)
 			if previousYOffset > end {
 				deltaY = max(0, deltaY - previousYOffset + end)
 			}
@@ -336,13 +339,15 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	}
 	
 	fileprivate func updateScrollContentInsetTop(_ top: CGFloat) {
-        let contentInset = UIEdgeInsets(top: top, left: scrollView.contentInset.top, bottom: scrollView.contentInset.left, right: scrollView.contentInset.right)
+        let top = adjustTopInset(top)
+        
+        let contentInset = UIEdgeInsets(top: top, left: scrollViewContentInset.left, bottom: scrollViewContentInset.bottom, right: scrollViewContentInset.right)
         if delegate?.hidingNavigationBarManagerShouldUpdateScrollViewInsets(self, insets: contentInset) == false {
             return
         }
         
         if viewController.automaticallyAdjustsScrollViewInsets {
-            var contentInset = scrollView.contentInset
+            var contentInset = scrollViewContentInset
             contentInset.top = top
             scrollView.contentInset = contentInset
         }
@@ -373,7 +378,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			var newContentOffset = scrollView.contentOffset
 			newContentOffset.y -= deltaY
 			
-			let contentInset = scrollView.contentInset
+			let contentInset = scrollViewContentInset
 			let top = contentInset.top + deltaY
 			
 			UIView.animate(withDuration: 0.2, animations: {
@@ -406,4 +411,20 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		return true
 	}
 
+    //MARK: iOS 11 handling (adjustedContentInset, safeAreaInsets)
+    
+    var scrollViewContentInset: UIEdgeInsets {
+        if #available(iOS 11.0, *) {
+            return scrollView.adjustedContentInset
+        } else {
+            return scrollView.contentInset
+        }
+    }
+    
+    fileprivate func adjustTopInset(_ top: CGFloat) -> CGFloat {
+        if #available(iOS 11.0, *) {
+            return top - scrollView.safeAreaInsets.top  // subtract safeAreaInsets for ios11
+        }
+        return top
+    }
 }
