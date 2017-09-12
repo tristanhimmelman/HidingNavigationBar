@@ -108,7 +108,7 @@ class HidingViewController {
 	func snap(_ contract: Bool, completion:((Void) -> Void)!) -> CGFloat {
 		var deltaY: CGFloat = 0
 		
-		UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+		UIView.animate(withDuration: 0.0, delay: 0, options: UIViewAnimationOptions(), animations: {
 			if let child = self.child {
 				if contract && child.isContracted() {
 					deltaY = self.contract()
@@ -181,7 +181,21 @@ class HidingViewController {
 		if let subViews = navSubviews {
 			for subView in subViews {
 				subView.alpha = alpha
+                hideViewIfNeeded(subView, alpha)
 			}
 		}
 	}
+    
+    //MARK: iOS 11 handling (adjustedContentInset, safeAreaInsets)
+
+    fileprivate func hideViewIfNeeded(_ view: UIView, _ alpha: CGFloat) {
+        // quick fix as alpha of navigation items gets reset to 1.0 when frame of navigation bar is altered in iOS 11
+        if #available(iOS 11.0, *) {
+            if alpha < 0.25 {
+                view.isHidden = true
+            } else {
+                view.isHidden = false
+            }
+        }
+    }
 }
