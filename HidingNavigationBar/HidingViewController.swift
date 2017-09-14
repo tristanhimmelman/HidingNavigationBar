@@ -98,9 +98,9 @@ class HidingViewController {
 	
 	func updateYOffset(_ delta: CGFloat) -> CGFloat {
 		var deltaY = delta
-		if child != nil && deltaY < 0 {
-			deltaY = child!.updateYOffset(deltaY)
-			child!.view.isHidden = (deltaY) < 0;
+		if let child = child, deltaY < 0 {
+			deltaY = child.updateYOffset(deltaY)
+			child.view.isHidden = (deltaY) < 0;
 		}
 		
 		var newYOffset = view.center.y + deltaY
@@ -127,15 +127,15 @@ class HidingViewController {
 	
 		var residual = newYOffset - newYCenter
 		
-		if (child != nil && deltaY > 0 && residual > 0) {
-			residual = child!.updateYOffset(residual)
-			child!.view.isHidden = residual - (newYOffset - newYCenter) > 0
+		if let child = child, deltaY > 0, residual > 0 {
+			residual = child.updateYOffset(residual)
+			child.view.isHidden = residual - (newYOffset - newYCenter) > 0
 		}
 		
 		return residual;
 	}
 	
-    func snap(_ contract: Bool, animated: Bool = true, completion:((Void) -> Void)!) -> CGFloat {
+    func snap(_ contract: Bool, animated: Bool = true, completion:(() -> Void)?) -> CGFloat {
         func _snap() -> CGFloat {
             if let child = self.child {
                 return contract && child.isContracted()
@@ -150,17 +150,15 @@ class HidingViewController {
         guard animated else { let delta = _snap(); completion?(); return delta }
         
 		var deltaY: CGFloat = 0
-		
-		UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+        
+        UIView.animate(withDuration: 0.2, delay: 0, options: [], animations: {
             deltaY = _snap()
             if let _ = self.deltaConstraint {
                 self.view.superview?.layoutIfNeeded()
             }
-		}) { (success: Bool) -> Void in
-			if completion != nil{
-				completion();
-			}
-		}
+        }, completion: { _ in
+            completion?()
+        })
 		
 		return deltaY;
 	}

@@ -15,10 +15,10 @@ public protocol HidingNavigationBarManagerDelegate: class {
 }
 
 public enum HidingNavigationBarState: String {
-	case Closed			= "Closed"
-	case Contracting	= "Contracting"
-	case Expanding		= "Expanding"
-	case Open			= "Open"
+	case closed
+	case contracting
+	case expanding
+	case open
 }
 
 public enum HidingNavigationForegroundAction {
@@ -62,8 +62,8 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	fileprivate var isUpdatingValues = false
 	
 	// Hiding navigation bar state
-	fileprivate var currentState = HidingNavigationBarState.Open
-	fileprivate var previousState = HidingNavigationBarState.Open
+	fileprivate var currentState = HidingNavigationBarState.open
+	fileprivate var previousState = HidingNavigationBarState.open
 
 	//Options
 	open var onForegroundAction = HidingNavigationForegroundAction.default
@@ -216,7 +216,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	//MARK: NSNotification
 	
-	func applicationWillEnterForeground() {
+	@objc func applicationWillEnterForeground() {
 		switch onForegroundAction {
 		case .show:
 			_ = navBarController.expand()
@@ -246,7 +246,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	fileprivate func shouldHandleScrolling() -> Bool {
 		// if scrolling down past top
-		if scrollView.contentOffset.y <= -scrollView.contentInset.top && currentState == .Open {
+		if scrollView.contentOffset.y <= -scrollView.contentInset.top && currentState == .open {
 			return false
 		}
 		
@@ -286,9 +286,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			// 3 - Update contracting variable
 			if Float(fabs(deltaY)) > .ulpOfOne {
 				if deltaY < 0 {
-					currentState = .Contracting
+					currentState = .contracting
 				} else {
-					currentState = .Expanding
+					currentState = .expanding
 				}
 			}
 			
@@ -299,7 +299,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			}
 			
 			// 5 - Apply resistance
-			if currentState == .Contracting {
+			if currentState == .contracting {
 				let availableResistance = contractionResistance - resistanceConsumed
 				resistanceConsumed = min(contractionResistance, resistanceConsumed - deltaY)
 				
@@ -326,11 +326,11 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
         if navBarController.view.center        == navBarController.expandedCenterValue()
             && extensionController.view.center == extensionController.expandedCenterValue()
             && tabBarController?.isExpanded() ?? true {
-			currentState = .Open
+			currentState = .open
         } else if navBarController.view.center == navBarController.contractedCenterValue()
             && extensionController.view.center == extensionController.contractedCenterValue()
             && tabBarController?.isContracted() ?? true {
-			currentState = .Closed
+			currentState = .closed
 		}
         
 		if state != currentState {
@@ -393,8 +393,8 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 		}
 		
 		resistanceConsumed = 0
-		if currentState == .Contracting || currentState == .Expanding || velocity > minVelocity {
-			var contracting: Bool = currentState == .Contracting
+		if currentState == .contracting || currentState == .expanding || velocity > minVelocity {
+			var contracting: Bool = currentState == .contracting
 
 			if velocity > minVelocity { // if velocity is greater than minVelocity we expand
 				contracting = false
@@ -436,7 +436,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	//MARK: Scroll handling
 	
-	func handlePanGesture(_ gesture: UIPanGestureRecognizer){
+	@objc func handlePanGesture(_ gesture: UIPanGestureRecognizer){
 		switch gesture.state {
 		case .began:
 			topInset = navBarController.view.frame.size.height + extensionController.view.bounds.size.height + statusBarHeight()
