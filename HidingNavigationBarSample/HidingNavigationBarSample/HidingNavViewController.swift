@@ -46,23 +46,25 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 	// MARK: UITableViewDelegate
 	
 	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		hidingNavBarManager?.shouldScrollToTop()
-		
-		return true
+        return hidingNavBarManager?.shouldScrollToTop() ?? true
 	}
 	
     // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "section \(section)"
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 5
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 100
+        return 20
     }
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -77,15 +79,15 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - HidingNavigationBarManagerDelegate
     
-    func hidingNavigationBarManagerDidChangeState(_ manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didChangeStateTo state: HidingNavigationBarState) {
         
     }
     
-    func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager) {
-        
-    }
-
-    func hidingNavigationBarManagerShouldUpdateScrollViewInsets(_ manager: HidingNavigationBarManager, insets: UIEdgeInsets) -> Bool {
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, shouldUpdateScrollViewInsetsTo insets: UIEdgeInsets) -> Bool {
         return true
+    }
+    
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didUpdateScrollViewInsetsTo insets: UIEdgeInsets) {
+        print("updated to \(insets)")
     }
 }

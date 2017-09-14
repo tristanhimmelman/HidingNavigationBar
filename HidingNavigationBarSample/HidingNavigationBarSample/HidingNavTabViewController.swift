@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HidingNavigationBarManagerDelegate {
 
 	let identifier = "cell"
 	var hidingNavBarManager: HidingNavigationBarManager?
@@ -32,6 +32,7 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 			hidingNavBarManager?.manageBottomBar(tabBar)
 			tabBar.barTintColor = UIColor(white: 230/255, alpha: 1)
 		}
+        hidingNavBarManager?.delegate = self
     }
 	
 	override func viewWillAppear(_ animated: Bool) {
@@ -49,30 +50,32 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 		hidingNavBarManager?.viewWillDisappear(animated)
 	}
 	
-	func cancelButtonTouched(){
+	@objc func cancelButtonTouched(){
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
 	
 	// MARK: UITableViewDelegate
 	
 	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		hidingNavBarManager?.shouldScrollToTop()
-		
-		return true
+        return hidingNavBarManager?.shouldScrollToTop() ?? true
 	}
 
     // MARK: - Table view data source
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "section \(section)"
+    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 5
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 100
+        return 20
     }
 
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -83,5 +86,17 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 		cell.selectionStyle = UITableViewCellSelectionStyle.none
 
         return cell
+    }
+    
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didChangeStateTo state: HidingNavigationBarState) {
+        
+    }
+    
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, shouldUpdateScrollViewInsetsTo insets: UIEdgeInsets) -> Bool {
+        return true
+    }
+    
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didUpdateScrollViewInsetsTo insets: UIEdgeInsets) {
+        print("updated to \(insets)")
     }
 }
