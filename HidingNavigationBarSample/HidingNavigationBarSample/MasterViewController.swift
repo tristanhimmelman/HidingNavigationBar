@@ -23,7 +23,7 @@ class MasterViewController: UITableViewController {
 	
 	func styleNavigationController(_ navigationController: UINavigationController){
 		navigationController.navigationBar.isTranslucent = true
-		navigationController.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+		navigationController.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
 		navigationController.navigationBar.tintColor = UIColor.white
 		navigationController.navigationBar.barTintColor = UIColor(red: 41/255, green: 141/255, blue: 250/255, alpha: 1)
 	}

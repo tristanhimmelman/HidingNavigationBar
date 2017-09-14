@@ -59,7 +59,7 @@ class HidingNavCustomFooterViewController: UIViewController, UITableViewDataSour
         constraints += NSLayoutConstraint.constraints(withVisualFormat: "H:|[footer]|", options: [], metrics: nil, views: ["footer": customFooter])
         let bottomEdgeConstraint = NSLayoutConstraint(item: customFooter, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1, constant: 0)
         constraints.append(bottomEdgeConstraint)
-        bottomEdgeConstraint.priority = 500
+        bottomEdgeConstraint.priority = UILayoutPriority(rawValue: 500)
         constraints.append(NSLayoutConstraint(item: customFooter, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 100))
         NSLayoutConstraint.activate(constraints)
         

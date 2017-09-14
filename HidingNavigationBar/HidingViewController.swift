@@ -64,7 +64,7 @@ class HidingViewController {
         return expanded
 	}
 	
-	func isContracted() -> Bool {
+    var isContracted: Bool {
         if let deltaConstraint = deltaConstraint {
             return deltaConstraint.constant == view.bounds.height * (contractsUpwards ? 1 : -1)
         } else {
@@ -72,7 +72,7 @@ class HidingViewController {
         }
 	}
 	
-	func isExpanded() -> Bool {
+    var isExpanded: Bool {
         if let deltaConstraint = deltaConstraint {
             return deltaConstraint.constant == 0
         } else {
@@ -138,7 +138,7 @@ class HidingViewController {
     func snap(_ contract: Bool, animated: Bool = true, completion:(() -> Void)?) -> CGFloat {
         func _snap() -> CGFloat {
             if let child = self.child {
-                return contract && child.isContracted()
+                return contract && child.isContracted
                     ? self.contract()
                     : self.expand()
             }
@@ -208,9 +208,9 @@ class HidingViewController {
 			navSubviews = []
 			
 			// loops through and subview and save the visible ones in navSubviews array
-			for subView in view.subviews {
+			for subView in fadingSubviews {
 				let isBackgroundView = subView === view.subviews[0]
-				let isViewHidden = subView.isHidden || Float(subView.alpha) < .ulpOfOne
+				let isViewHidden = subView.isHidden || subView.alpha < .ulpOfOne
 				
 				if isBackgroundView == false && isViewHidden == false {
 					navSubviews?.append(subView)
@@ -224,4 +224,25 @@ class HidingViewController {
 			}
 		}
 	}
+    
+    //MARK: iOS 11 handling (adjustedContentInset, safeAreaInsets)
+    
+    var fadingSubviews: [UIView] {
+        guard #available(iOS 11.0, *) else { return view.subviews }
+        
+        return view.subviews.first {
+            String(describing: type(of: $0)) == "_UINavigationBarContentView"
+            }?.subviews.flatMap { $0.subviews } ?? view.subviews
+    }
+
+    fileprivate func hideViewIfNeeded(_ view: UIView, _ alpha: CGFloat) {
+        // quick fix as alpha of navigation items gets reset to 1.0 when frame of navigation bar is altered in iOS 11
+        if #available(iOS 11.0, *) {
+            if alpha < 0.25 {
+                view.isHidden = true
+            } else {
+                view.isHidden = false
+            }
+        }
+    }
 }

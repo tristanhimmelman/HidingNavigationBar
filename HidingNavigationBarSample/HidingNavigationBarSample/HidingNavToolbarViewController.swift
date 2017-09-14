@@ -50,9 +50,7 @@ class HidingNavToolbarViewController: UIViewController, UITableViewDataSource, U
 	// MARK: UITableViewDelegate
 	
 	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		hidingNavBarManager?.shouldScrollToTop()
-		
-		return true
+        return hidingNavBarManager?.shouldScrollToTop() ?? true
 	}
 
     // MARK: - Table view data source

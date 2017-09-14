@@ -46,9 +46,7 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
 	// MARK: UITableViewDelegate
 	
 	func scrollViewShouldScrollToTop(_ scrollView: UIScrollView) -> Bool {
-		hidingNavBarManager?.shouldScrollToTop()
-		
-		return true
+        return hidingNavBarManager?.shouldScrollToTop() ?? true
 	}
 	
     // MARK: - UITableViewDataSource
@@ -81,11 +79,15 @@ class HidingNavViewController: UIViewController, UITableViewDataSource, UITableV
     
     // MARK: - HidingNavigationBarManagerDelegate
     
-    func hidingNavigationBarManagerDidChangeState(_ manager: HidingNavigationBarManager, toState state: HidingNavigationBarState) {
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didChangeStateTo state: HidingNavigationBarState) {
         
     }
     
-    func hidingNavigationBarManagerDidUpdateScrollViewInsets(_ manager: HidingNavigationBarManager) {
-        
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, shouldUpdateScrollViewInsetsTo insets: UIEdgeInsets) -> Bool {
+        return true
+    }
+    
+    func hidingNavigationBarManager(_ manager: HidingNavigationBarManager, didUpdateScrollViewInsetsTo insets: UIEdgeInsets) {
+        print("updated to \(insets)")
     }
 }
