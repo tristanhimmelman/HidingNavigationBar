@@ -58,6 +58,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	// Hiding navigation bar state
 	fileprivate var currentState = HidingNavigationBarState.Open
 	fileprivate var previousState = HidingNavigationBarState.Open
+    
+	//Gesture
+	fileprivate var panGesture: UIPanGestureRecognizer?
 
 	//Options
 	open var onForegroundAction = HidingNavigationForegroundAction.default
@@ -87,6 +90,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(HidingNavigationBarManager.handlePanGesture(_:)))
 		panGesture.delegate = self
 		scrollView.addGestureRecognizer(panGesture)
+		self.panGesture = panGesture
 		
 		navBarController.expandedCenter = {[weak self] (view: UIView) -> CGPoint in
 			return CGPoint(x: view.bounds.midX, y: view.bounds.midY + (self?.statusBarHeight() ?? 0))
@@ -106,6 +110,9 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	deinit {
 		NotificationCenter.default.removeObserver(self)
+		if let panGesture = panGesture {
+			scrollView.removeGestureRecognizer(panGesture)
+		}
 	}
 	
 	//MARK: Public methods
