@@ -127,12 +127,16 @@ hidingNavBarManager?.refreshControl = refreshControl
 
 If your using [Carthage](https://github.com/Carthage/Carthage), add the following line to your Cartfile:
 ```
-github "tristanhimmelman/HidingNavigationBar" ~> 1.0
+github "tristanhimmelman/HidingNavigationBar" ~> 2.0
 ```
+
+(for Swift 3, use `github "tristanhimmelman/HidingNavigationBar" ~> 1.0` instead)
 
 If you are using [CocoaPods](https://cocoapods.org/), add the following line to your Podfile:
 
-`pod 'HidingNavigationBar', '~> 1.0'`
+`pod 'HidingNavigationBar', '~> 2.0'`
+
+(for Swift 3, use `pod 'HidingNavigationBar', '~> 1.0'` instead)
 
 Otherwise, include the following files directly to your project:
 - HidingNavigationBarManager.swift

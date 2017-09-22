@@ -205,7 +205,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	//MARK: NSNotification
 	
-	func applicationWillEnterForeground() {
+    @objc func applicationWillEnterForeground() {
 		switch onForegroundAction {
 		case .show:
 			_ = navBarController.expand()
@@ -273,7 +273,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 			}
 			
 			// 3 - Update contracting variable
-			if Float(fabs(deltaY)) > FLT_EPSILON {
+			if Float(fabs(deltaY)) > .ulpOfOne {
 				if deltaY < 0 {
 					currentState = .Contracting
 				} else {
@@ -386,7 +386,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	//MARK: Scroll handling
 	
-	func handlePanGesture(_ gesture: UIPanGestureRecognizer){
+    @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer){
 		switch gesture.state {
 		case .began:
 			topInset = navBarController.view.frame.size.height + extensionController.view.bounds.size.height + statusBarHeight()
