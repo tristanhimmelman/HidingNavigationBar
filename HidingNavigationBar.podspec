@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name = "HidingNavigationBar"
-  s.version = "2.0.0"
+  s.version = "2.0.1"
   s.license = { :type => "MIT", :file => "LICENSE" }
   s.summary = "A swift library that manages hiding and showing a Navigation Bar as a user scrolls"
   s.homepage = "https://github.com/tristanhimmelman/HidingNavigationBar"
