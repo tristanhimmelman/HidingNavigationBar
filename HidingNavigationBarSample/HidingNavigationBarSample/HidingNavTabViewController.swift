@@ -49,7 +49,7 @@ class HidingNavTabViewController: UIViewController, UITableViewDataSource, UITab
 		hidingNavBarManager?.viewWillDisappear(animated)
 	}
 	
-	func cancelButtonTouched(){
+	@objc func cancelButtonTouched(){
 		navigationController?.dismiss(animated: true, completion: nil)
 	}
 	
