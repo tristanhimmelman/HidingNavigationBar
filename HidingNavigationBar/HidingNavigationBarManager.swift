@@ -75,10 +75,8 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	// Hiding navigation bar state
 	fileprivate var currentState = HidingNavigationBarState.Open
 	fileprivate var previousState = HidingNavigationBarState.Open
-    
-	//Gesture
 	fileprivate var panGesture: UIPanGestureRecognizer?
-
+    
 	//Options
 	open var onForegroundAction = HidingNavigationForegroundAction.default
 	
@@ -162,6 +160,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	}
 	
 	open func viewWillAppear(_ animated: Bool) {
+		panGesture?.isEnabled = true
 		expand()
 	}
 	
@@ -171,6 +170,7 @@ open class HidingNavigationBarManager: NSObject, UIScrollViewDelegate, UIGesture
 	
 	open func viewWillDisappear(_ animated: Bool) {
 		expand()
+		panGesture?.isEnabled = false
 	}
 	
 	open func updateValues()	{

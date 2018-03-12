@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		52258B381E6412EA007E9A19 /* HiddenNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52258B371E6412EA007E9A19 /* HiddenNavViewController.swift */; };
+		52258B3A1E6413F2007E9A19 /* HidingNavShowsNavViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52258B391E6413F2007E9A19 /* HidingNavShowsNavViewController.swift */; };
+		52258B431E66E55A007E9A19 /* InteractivePopGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52258B421E66E55A007E9A19 /* InteractivePopGestureRecognizerDelegate.swift */; };
 		6A412A2E1BB1CBA4001C3F67 /* HidingNavigationBar.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A412A2D1BB1CBA4001C3F67 /* HidingNavigationBar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6A412A401BB1CBA4001C3F67 /* HidingNavigationBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A412A2B1BB1CBA4001C3F67 /* HidingNavigationBar.framework */; };
 		6A412A411BB1CBA4001C3F67 /* HidingNavigationBar.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 6A412A2B1BB1CBA4001C3F67 /* HidingNavigationBar.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -58,6 +61,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		52258B371E6412EA007E9A19 /* HiddenNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HiddenNavViewController.swift; sourceTree = "<group>"; };
+		52258B391E6413F2007E9A19 /* HidingNavShowsNavViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HidingNavShowsNavViewController.swift; sourceTree = "<group>"; };
+		52258B421E66E55A007E9A19 /* InteractivePopGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractivePopGestureRecognizerDelegate.swift; sourceTree = "<group>"; };
 		6A412A2B1BB1CBA4001C3F67 /* HidingNavigationBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HidingNavigationBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A412A2D1BB1CBA4001C3F67 /* HidingNavigationBar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HidingNavigationBar.h; sourceTree = "<group>"; };
 		6A412A2F1BB1CBA4001C3F67 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,6 +162,9 @@
 				6A65711D1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift */,
 				6A6571231AF40E7000A6CFE4 /* HidingNavTabViewController.swift */,
 				6A65711F1AF408C000A6CFE4 /* HidingNavToolbarViewController.swift */,
+				52258B371E6412EA007E9A19 /* HiddenNavViewController.swift */,
+				52258B391E6413F2007E9A19 /* HidingNavShowsNavViewController.swift */,
+				52258B421E66E55A007E9A19 /* InteractivePopGestureRecognizerDelegate.swift */,
 				6A6570F31AF3F71100A6CFE4 /* Main.storyboard */,
 				6A6570F61AF3F71100A6CFE4 /* Images.xcassets */,
 				6A6570F81AF3F71100A6CFE4 /* LaunchScreen.xib */,
@@ -355,11 +364,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52258B381E6412EA007E9A19 /* HiddenNavViewController.swift in Sources */,
 				6A6571211AF408C000A6CFE4 /* HidingNavToolbarViewController.swift in Sources */,
 				6A65711B1AF3FADC00A6CFE4 /* HidingNavigationBarManager.swift in Sources */,
 				6A6571241AF40E7000A6CFE4 /* HidingNavTabViewController.swift in Sources */,
 				6A6570F01AF3F71100A6CFE4 /* MasterViewController.swift in Sources */,
 				6A6570EE1AF3F71100A6CFE4 /* AppDelegate.swift in Sources */,
+				52258B3A1E6413F2007E9A19 /* HidingNavShowsNavViewController.swift in Sources */,
+				52258B431E66E55A007E9A19 /* InteractivePopGestureRecognizerDelegate.swift in Sources */,
 				6A6571121AF3F8D900A6CFE4 /* HidingNavViewController.swift in Sources */,
 				6A65711C1AF3FADC00A6CFE4 /* HidingViewController.swift in Sources */,
 				6A65711E1AF3FDB600A6CFE4 /* HidingNavExtensionViewController.swift in Sources */,
