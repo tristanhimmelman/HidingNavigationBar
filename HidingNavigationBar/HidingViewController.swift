@@ -179,6 +179,14 @@ class HidingViewController {
 	}
 	
 	// MARK: - Private methods
+    
+    // Recursively applies an operation to all views in a view hierarchy
+    fileprivate func applyToViewHierarchy(rootView: UIView, operation: (UIView) -> Void) {
+        operation(rootView)
+        rootView.subviews.forEach { view in
+            applyToViewHierarchy(rootView: view, operation: operation)
+        }
+    }
 	
 	fileprivate func updateSubviewsToAlpha(_ alpha: CGFloat) {
 		if navSubviews == nil {
@@ -194,11 +202,10 @@ class HidingViewController {
 				}
 			}
 		}
-		
-		if let subViews = navSubviews {
-			for subView in subViews {
-				subView.alpha = alpha
-			}
-		}
+        navSubviews?.forEach { subView in
+            applyToViewHierarchy(rootView: subView) { view in
+                view.alpha = alpha
+            }
+        }
 	}
 }
