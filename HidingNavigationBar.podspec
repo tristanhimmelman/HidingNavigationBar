@@ -11,5 +11,6 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '8.0'
   s.requires_arc = true
   s.source_files = 'HidingNavigationBar/**/*.swift'
+  s.swift_version = '4.0'
 
 end
