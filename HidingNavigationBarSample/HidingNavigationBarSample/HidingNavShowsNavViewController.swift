@@ -46,7 +46,7 @@ class HidingNavShowsNavViewController: UIViewController, UITableViewDataSource, 
 		hidingNavBarManager?.viewWillDisappear(animated)
 	}
 	
-	func backButtonTouched(){
+	@objc func backButtonTouched(){
 		_ = navigationController?.popViewController(animated: true)
 	}
 	
