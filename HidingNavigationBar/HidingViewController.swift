@@ -125,7 +125,7 @@ class HidingViewController {
     func snap(_ contract: Bool, completion:(() -> Void)!) -> CGFloat {
 		var deltaY: CGFloat = 0
 		
-		UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions(), animations: {
+		UIView.animate(withDuration: 0.2, delay: 0, options: UIView.AnimationOptions(), animations: {
 			if let child = self.child {
 				if contract && child.isContracted() {
 					deltaY = self.contract()
